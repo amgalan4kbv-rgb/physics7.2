@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зөв биш хэлбэртэй биеийн эзлэхүүн ба масс - Физик VII</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- KaTeX: Математик ба физикийн томьёог дүрслэх сан -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #020617; color: #f8fafc; }
+        
+        canvas {
+            background-color: #0f172a;
+            border-radius: 0.75rem;
+            box-shadow: inset 0 2px 8px 0 rgba(0, 0, 0, 0.6);
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            margin-top: -7px;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+            border: 2px solid white;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="p-3 md:p-6 min-h-screen bg-slate-950">
+    <div class="max-w-6xl mx-auto bg-slate-900 rounded-2xl shadow-2xl border border-slate-800 overflow-hidden">
+        
+        <!-- HEADER -->
+        <div class="bg-gradient-to-r from-sky-950 via-indigo-950 to-slate-900 p-6 text-white relative overflow-hidden border-b border-slate-800">
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
+                <div class="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+                    <div class="relative w-20 h-20 rounded-full bg-slate-800 p-0.5 border-2 border-sky-400 shadow-xl flex items-center justify-center overflow-hidden shrink-0">
+                        <i data-lucide="layers" class="w-10 h-10 text-sky-400"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-sky-400">Зөв биш хэлбэртэй биеийн эзлэхүүн ба масс хэмжих</h1>
+                        <p class="text-sky-200 text-sm md:text-base font-medium">Түрэгдсэн шингэний арга | Мензурк ба Дэнс ашиглах | Физик VII</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 bg-slate-950/60 p-3 rounded-xl border border-slate-800 backdrop-blur-sm">
+                    <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-sky-400 shrink-0 shadow-lg bg-slate-800 flex items-center justify-center">
+                        <i data-lucide="award" class="w-6 h-6 text-sky-400"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Интерактив хичээл</p>
+                        <p class="text-base font-extrabold text-slate-100">Цаст-Алтай сургууль</p>
+                        <p class="text-xs text-sky-400/90 font-medium mt-0.5">Физикийн багш М.Амгалан</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="flex flex-wrap border-b border-slate-800 bg-slate-900/80">
+            <button id="tab-btn-intro" onclick="showTab('intro')" class="tab-btn px-6 py-4 font-semibold text-sky-400 border-b-2 border-sky-500 transition-all">1. Онолын ойлголт</button>
+            <button id="tab-btn-experiment" onclick="showTab('experiment')" class="tab-btn px-6 py-4 font-semibold text-slate-400 hover:text-slate-200 transition-all">2. Интерактив туршилт</button>
+            <button id="tab-btn-problems" onclick="showTab('problems')" class="tab-btn px-6 py-4 font-semibold text-slate-400 hover:text-slate-200 transition-all">3. Бодлого бодох (Зурагтай 10)</button>
+            <button id="tab-btn-quiz" onclick="showTab('quiz')" class="tab-btn px-6 py-4 font-semibold text-slate-400 hover:text-slate-200 transition-all">4. Сорил (Зурагтай 10)</button>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="p-4 md:p-8">
+            
+            <!-- 1. ОНОЛЫН ХЭСЭГ -->
+            <div id="content-intro" class="tab-content block space-y-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-sky-400 mb-4 border-b border-slate-800 pb-2">Түрэгдсэн шингэний аргаар эзлэхүүн олох</h2>
+                    <p class="text-slate-300 leading-relaxed text-base md:text-lg mb-6">
+                        Чулуу, баримлын шавар зэрэг геометрийн зөв биш хэлбэртэй хатуу биеийн эзлэхүүнийг шугамаар шууд хэмжих боломжгүй. Иймд шингэнд дүрсэн бие нь өөрийн эзлэхүүнтэй тэнцүү хэмжээний шингэнийг эзэлж түрдэг чанарыг ашиглана.
+                    </p>
+
+                    <div class="bg-slate-950 p-6 rounded-xl border border-sky-500/30 mb-8 text-center">
+                        <div class="text-sky-300 font-extrabold text-2xl mb-2">
+                            $$V_{\text{бие}} = V_2 - V_1$$
+                        </div>
+                        <p class="text-slate-400 text-sm">$V_1$ - Мензуркэн дэх усны анхны эзлэхүүн, $V_2$ - Биеийг усанд дүрсний дараах нийт эзлэхүүн, $V_{\text{бие}}$ - Хатуу биеийн эзлэхүүн</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700 text-center">
+                            <span class="text-xs text-slate-400 font-bold block mb-1">Хэлбэрийн үл хамаарал</span>
+                            <span class="text-sky-400 font-black text-base">Баримлын шаврын хэлбэрийг өөрчилсөн ч эзлэхүүн өөрчлөгдөхгүй!</span>
+                        </div>
+                        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700 text-center">
+                            <span class="text-xs text-slate-400 font-bold block mb-1">Нэгжийн хамаарал</span>
+                            <span class="text-teal-400 font-black text-xl">1 $\text{см}^3$ = 1 мл</span>
+                        </div>
+                        <div class="p-4 bg-slate-800/80 rounded-xl border border-slate-700 text-center">
+                            <span class="text-xs text-slate-400 font-bold block mb-1">Масс ба Эзлэхүүн</span>
+                            <span class="text-amber-400 font-black text-xl">$\rho = \frac{m}{V_{\text{бие}}}$</span>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-sky-400 mb-4 border-b border-slate-800 pb-2">Туршилтыг төлөвлөх ба гүйцэтгэх дараалал</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="p-5 bg-slate-800/50 rounded-xl border-l-4 border-sky-500 space-y-3">
+                            <h3 class="font-bold text-sky-400 text-lg">1. Массыг тодорхойлох</h3>
+                            <p class="text-slate-300 text-sm">Зөв биш хэлбэртэй биеийн (баримлын шавар) массыг $m$ хэмжихийн тулд усанд дүрж чийглэхээс <strong>өмнө</strong> хуурай байхад нь электрон дэнс эсвэл хөшүүргэн жинлүүрээр хэмжинэ.</p>
+                        </div>
+                        <div class="p-5 bg-slate-800/50 rounded-xl border-l-4 border-teal-500 space-y-3">
+                            <h3 class="font-bold text-teal-400 text-lg">2. Эзлэхүүнийг хэмжих</h3>
+                            <p class="text-slate-300 text-sm">Мензуркэд тодорхой хэмжээний ус авч $V_1$ заалтыг тэмдэглэнэ. Биеийг нарийн утсаар аажуухан усанд бүрэн дүрж $V_2$ заалтыг уншина. Зөрүүгээр эзлэхүүнийг олно.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. ИНТЕРАКТИВ ТУРШИЛТЫН ХЭСЭГ -->
+            <div id="content-experiment" class="tab-content hidden space-y-6">
+                <div class="bg-slate-900 p-4 md:p-6 rounded-xl border border-slate-800 shadow-xl">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sky-400 font-bold mb-2 text-sm">Усны анхны эзлэхүүн ($V_1$):</label>
+                            <div class="flex items-center gap-3">
+                                <input type="range" id="sliderV1" min="100" max="300" step="10" value="150">
+                                <span id="dispV1" class="bg-sky-500 text-slate-950 font-black px-2.5 py-1 rounded-lg text-base shrink-0">150 мл</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-teal-400 font-bold mb-2 text-sm">Биеийн эзлэхүүн ($V_{\text{бие}}$):</label>
+                            <div class="flex items-center gap-3">
+                                <input type="range" id="sliderVbody" min="20" max="150" step="5" value="60">
+                                <span id="dispVbody" class="bg-teal-500 text-slate-950 font-black px-2.5 py-1 rounded-lg text-base shrink-0">60 см³</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-amber-400 font-bold mb-2 text-sm">Баримлын шаврын хэлбэр:</label>
+                            <select id="shapeSelect" onchange="drawCanvas()" class="w-full bg-slate-950 border border-slate-700 text-amber-400 font-bold px-3 py-2 rounded-xl focus:outline-none">
+                                <option value="irregular">Зөв биш (Хэвээс гажигтай)</option>
+                                <option value="sphere">Бөмбөлөг хэлбэртэй</option>
+                                <option value="flat">Хавтгай хэлбэртэй</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Canvas Модел -->
+                    <div class="relative bg-slate-950 rounded-2xl overflow-hidden border-2 border-slate-800 shadow-2xl flex justify-center items-center min-h-[380px] p-4">
+                        <canvas id="experimentCanvas" width="760" height="380" class="w-full h-auto select-none"></canvas>
+                    </div>
+                    
+                    <!-- Үр дүнгийн карт -->
+                    <div class="mt-4 grid grid-cols-1 md:grid-cols-4 gap-3 text-center text-xs md:text-sm font-semibold">
+                        <div class="p-3 bg-slate-800/80 border border-slate-700 rounded-xl text-slate-300">
+                            Анхны ус ($V_1$): <br><span id="calc-V1" class="font-extrabold text-white text-lg">150 мл</span>
+                        </div>
+                        <div class="p-3 bg-sky-950/50 border border-sky-800/80 rounded-xl text-sky-300">
+                            Нийт түвшин ($V_2$): <br><span id="calc-V2" class="font-extrabold text-sky-400 text-xl">210 мл</span>
+                        </div>
+                        <div class="p-3 bg-teal-950/50 border border-teal-800/80 rounded-xl text-teal-300">
+                            Түрэгдсэн шингэн ($V_2 - V_1$): <br><span id="calc-Vsub" class="font-extrabold text-teal-400 text-xl">60 мл</span>
+                        </div>
+                        <div class="p-3 bg-amber-950/50 border border-amber-800/80 rounded-xl text-amber-300">
+                            Биеийн эзлэхүүн ($V_{\text{бие}}$): <br><span id="calc-Vfinal" class="font-extrabold text-amber-400 text-lg">60 см³</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. БОДЛОГО БОДОХ ХЭСЭГ (10 ЗУРАГТАЙ БОДЛОГО) -->
+            <div id="content-problems" class="tab-content hidden space-y-6">
+                <div id="problems-container" class="space-y-6"></div>
+                
+                <div class="flex flex-col md:flex-row items-center justify-center mt-8 gap-4">
+                    <button onclick="checkAllProblems()" class="bg-gradient-to-r from-sky-500 to-teal-600 hover:from-sky-600 hover:to-teal-700 text-slate-950 font-extrabold py-3.5 px-10 rounded-full shadow-xl transition-transform active:scale-95 text-base">
+                        Бодлогуудыг шалгах
+                    </button>
+                    <button onclick="resetProblems()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-bold py-3.5 px-8 rounded-full shadow-lg transition-transform active:scale-95 text-base">
+                        Арилгах
+                    </button>
+                </div>
+                
+                <div id="problems-result" class="hidden mt-8 p-8 rounded-2xl text-center shadow-2xl border-2 transition-all"></div>
+            </div>
+
+            <!-- 4. СОРЫЛ (10 ЗУРАГТАЙ АСУУЛТ + GOOGLE SHEET ИЛГЭЭХ) -->
+            <div id="content-quiz" class="tab-content hidden space-y-6">
+                <div class="p-5 bg-sky-950/40 rounded-2xl border-2 border-sky-500/80 shadow-lg space-y-4">
+                    <h3 class="text-sky-400 font-extrabold text-lg flex items-center gap-2">
+                        <i data-lucide="user-check" class="w-5 h-5"></i>
+                        Сурагчийн мэдээлэл
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-slate-300 text-xs font-bold mb-1">Сурагчийн бүтэн нэр:</label>
+                            <input type="text" id="studentName" placeholder="Доржийн Бат" class="w-full bg-slate-950 border border-slate-700 text-slate-100 font-semibold px-4 py-2.5 rounded-xl focus:outline-none focus:border-sky-400 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 text-xs font-bold mb-1">Анги бүлэг:</label>
+                            <input type="text" id="studentClass" placeholder="7А" class="w-full bg-slate-950 border border-slate-700 text-slate-100 font-semibold px-4 py-2.5 rounded-xl focus:outline-none focus:border-sky-400 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="quiz-container" class="space-y-6"></div>
+                
+                <div class="flex flex-col md:flex-row items-center justify-center mt-8 gap-4">
+                    <button id="submitQuizBtn" onclick="calculateScore()" class="bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-slate-950 font-extrabold py-3.5 px-10 rounded-full shadow-xl transition-transform active:scale-95 text-base">
+                        Үнэлгээ харах ба Илгээх
+                    </button>
+                    <button onclick="resetQuiz()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-bold py-3.5 px-8 rounded-full shadow-lg transition-transform active:scale-95 text-base">
+                        Дахин эхлүүлэх
+                    </button>
+                </div>
+                <div id="quiz-warning" class="text-amber-400 font-medium text-sm text-center hidden mt-2"></div>
+                <div id="sendContainer" class="text-center mt-3"></div>
+                
+                <div id="quiz-result" class="hidden mt-8 p-8 rounded-2xl text-center shadow-2xl border-2 transition-all"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ЛОГИК -->
+    <script>
+        const GOOGLE_APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBtm4mSEW1ylvRZrlvLVE4SSG_pb_94xAz2HdC1CP54Mam9VvbZ1XrZhfYKZhMvOw/exec';
+        const CURRENT_LESSON_SHEET = '7_Зөв_биш_биеийн_эзлэхүүн';
+        const LOCAL_STORAGE_KEY = 'physics7_displaced_volume_submitted';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initProblems();
+            initQuiz();
+            drawCanvas();
+            lucide.createIcons();
+            checkSubmissionStatus();
+            setTimeout(triggerKaTeX, 300);
+        });
+
+        function checkSubmissionStatus() {
+            if (localStorage.getItem(LOCAL_STORAGE_KEY) === 'true') {
+                lockQuizUI();
+                const res = document.getElementById('quiz-result');
+                res.classList.remove('hidden');
+                res.className = 'mt-8 p-6 rounded-2xl text-center shadow-2xl border-2 bg-red-950/60 border-red-500/80 text-red-300';
+                res.innerHTML = `<p class="font-bold text-lg">🔒 Та энэ хичээлийн сорилыг өгсөн байна. Дахин өгөх боломжгүй.</p>`;
+            }
+        }
+
+        function lockQuizUI() {
+            document.getElementById('studentName').disabled = true;
+            document.getElementById('studentClass').disabled = true;
+            document.querySelectorAll('.quiz-opt-btn').forEach(b => b.disabled = true);
+            const btn = document.getElementById('submitQuizBtn');
+            if (btn) {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+                btn.innerText = '🔒 Сорил илгээгдсэн';
+            }
+        }
+
+        function triggerKaTeX() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ]
+                });
+            }
+        }
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('text-sky-400', 'border-sky-500', 'border-b-2');
+                btn.classList.add('text-slate-400');
+            });
+            
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-400');
+                activeBtn.classList.add('text-sky-400', 'border-sky-500', 'border-b-2');
+            }
+
+            if (tabName === 'experiment') {
+                setTimeout(drawCanvas, 50);
+            }
+            triggerKaTeX();
+        }
+
+        // CANVAS ТУРШИЛТЫН ДҮРСЛЭЛ
+        const canvas = document.getElementById('experimentCanvas');
+        const ctx = canvas.getContext('2d');
+        const sliderV1 = document.getElementById('sliderV1');
+        const sliderVbody = document.getElementById('sliderVbody');
+
+        function drawCanvas() {
+            let v1 = parseFloat(sliderV1.value);
+            let vBody = parseFloat(sliderVbody.value);
+            let v2 = v1 + vBody;
+            let shape = document.getElementById('shapeSelect').value;
+
+            document.getElementById('dispV1').innerText = v1.toFixed(0) + ' мл';
+            document.getElementById('dispVbody').innerText = vBody.toFixed(0) + ' см³';
+
+            document.getElementById('calc-V1').innerText = v1.toFixed(0) + ' мл';
+            document.getElementById('calc-V2').innerText = v2.toFixed(0) + ' мл';
+            document.getElementById('calc-Vsub').innerText = vBody.toFixed(0) + ' мл';
+            document.getElementById('calc-Vfinal').innerText = vBody.toFixed(0) + ' см³';
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // МЕНЗУРК 1 (Биеийг дүрхийн өмнө)
+            drawCylinder(180, 310, v1, null, "Анхны ус (V1)", false);
+
+            // МЕНЗУРК 2 (Биеийг дүрсний дараа)
+            drawCylinder(560, 310, v2, vBody, "Нийт эзлэхүүн (V2)", true, shape);
+        }
+
+        function drawCylinder(cx, cy, waterVol, bodyVol, title, hasBody, shapeType="irregular") {
+            const cylW = 70;
+            const cylH = 240;
+            const maxCap = 500;
+
+            // Суурь
+            ctx.fillStyle = '#334155';
+            ctx.fillRect(cx - 45, cy, 90, 10);
+
+            // Мензуркийн хүрээ
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(cx - cylW / 2, cy - cylH);
+            ctx.lineTo(cx - cylW / 2, cy);
+            ctx.lineTo(cx + cylW / 2, cy);
+            ctx.lineTo(cx + cylW / 2, cy - cylH);
+            ctx.stroke();
+
+            // Ус
+            let fillPx = (waterVol / maxCap) * cylH;
+            ctx.fillStyle = 'rgba(56, 189, 248, 0.6)';
+            ctx.fillRect(cx - cylW / 2 + 2, cy - fillPx, cylW - 4, fillPx);
+
+            // Мениск
+            ctx.beginPath();
+            ctx.ellipse(cx, cy - fillPx, cylW / 2 - 2, 5, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(14, 165, 233, 0.9)';
+            ctx.fill();
+
+            // Хатуу бие
+            if (hasBody && bodyVol) {
+                ctx.fillStyle = '#f59e0b';
+                ctx.strokeStyle = '#d97706';
+                ctx.lineWidth = 2;
+                
+                let bodyY = cy - 25;
+                ctx.beginPath();
+                if (shapeType === 'sphere') {
+                    let r = Math.cbrt(bodyVol) * 4;
+                    ctx.arc(cx, bodyY, r, 0, Math.PI * 2);
+                } else if (shapeType === 'flat') {
+                    let w = Math.sqrt(bodyVol) * 6;
+                    let h = 12;
+                    ctx.rect(cx - w / 2, bodyY - h / 2, w, h);
+                } else {
+                    let r = Math.cbrt(bodyVol) * 4;
+                    ctx.moveTo(cx - r, bodyY);
+                    ctx.bezierCurveTo(cx - r, bodyY - r*1.2, cx + r/2, bodyY - r*1.5, cx + r, bodyY - r/2);
+                    ctx.bezierCurveTo(cx + r*1.3, bodyY + r/2, cx, bodyY + r*1.2, cx - r, bodyY);
+                }
+                ctx.fill();
+                ctx.stroke();
+
+                // Утас
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.setLineDash([3, 3]);
+                ctx.beginPath();
+                ctx.moveTo(cx, bodyY - 10);
+                ctx.lineTo(cx, cy - cylH - 10);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            // Хуваарууд
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '10px Inter';
+            ctx.strokeStyle = '#64748b';
+            ctx.lineWidth = 1;
+
+            for (let i = 0; i <= 5; i++) {
+                let markY = cy - (cylH / 5) * i;
+                let val = i * 100;
+
+                ctx.beginPath();
+                ctx.moveTo(cx + cylW / 2, markY);
+                ctx.lineTo(cx + cylW / 2 - 10, markY);
+                ctx.stroke();
+                ctx.fillText(`${val}`, cx + cylW / 2 + 5, markY + 3);
+            }
+
+            ctx.fillStyle = '#38bdf8';
+            ctx.font = 'bold 13px Inter';
+            ctx.fillText(title, cx - 50, cy - cylH - 20);
+            ctx.fillStyle = '#f8fafc';
+            ctx.fillText(`${waterVol.toFixed(0)} мл`, cx - 25, cy - fillPx - 10);
+        }
+
+        sliderV1.addEventListener('input', drawCanvas);
+        sliderVbody.addEventListener('input', drawCanvas);
+
+        // 10 ЗУРАГТАЙ БОДЛОГО
+        const physicsProblems = [
+            { id: 0, title: "Бодлого 1", text: "Мензуркэд 120 мл ус байв. Хатуу биеийг усанд бүрэн дүрэхэд түвшин 170 мл болж өсөв. Биеийн эзлэхүүнийг см³-ээр олно уу.", correctAnswer: 50, unit: "см³", svg: `<svg width="220" height="90" viewBox="0 0 220 90"><rect x="10" y="10" width="200" height="70" fill="#1e293b" rx="8" stroke="#334155" stroke-width="2"/><text x="110" y="35" font-size="12" fill="#38bdf8" text-anchor="middle" font-weight="bold">V1 = 120 мл  |  V2 = 170 мл</text><text x="110" y="60" font-size="13" fill="#2dd4bf" text-anchor="middle" font-weight="extrabold">V = 170 - 120 = ? см³</text></svg>` },
+            { id: 1, title: "Бодлого 2", text: "Баримлын шаврын массыг дэнсээр хэмжихэд 78 г байв. Усанд дүрэхэд 30 мл ус түрэгдсэн бол шаврын эзлэхүүн хэдэн см³ вэ?", correctAnswer: 30, unit: "см³", svg: `<svg width="220" height="90" viewBox="0 0 220 90"><rect x="10" y="10" width="200" height="70" fill="#1e293b" rx="8" stroke="#334155" stroke-width="2"/><text x="110" y="35" font-size="12" fill="#fbbf24" text-anchor="middle" font-weight="bold">m = 78 г  |  V_түр = 30 мл</text><text x="110" y="60" font-size="13" fill="#38bdf8" text-anchor="middle" font-weight="extrabold">V_шавар = ? см³</text></svg>` },
+            { id: 2, title: "Бодлого 3", text: "150 мл устай мензуркэд чулуу дүрэхэд 215 мл заав. Чулууны эзлэхүүн хэдэн мл вэ?", correctAnswer: 65, unit: "мл", svg: `<svg width="220" height="90" viewBox="0 0 220 90"><rect x="10" y="10" width="200" height="70" fill="#1e293b" rx="8" stroke="#334155" stroke-width="2"/><text x="110" y="35" font-size="12" fill="#38bdf8" text-anchor="middle" font-weight="bold">V1 = 150 мл  |  V2 = 215 мл</text><text x="110" y="60" font-size="13" fill="#2dd4bf" text-anchor="middle" font-weight="extrabold">V_чулуу = ? мл</text></svg>` },
+            { id: 3, title: "Бодлого 4", text: "Эзлэхүүн нь 45 см³ баримлын шаврыг бөмбөрцөг хэлбэртэй байснаас нь хавтгай болгож өөрчлөв. Шинэ эзлэхүүн хэдэн см³ болох вэ?", correctAnswer: 45, unit: "см³", svg: `<svg width="220" height="90" viewBox="0 0 220 90"><rect x="10" y="10" width="200" height="70" fill="#1e293b" rx="8" stroke="#334155" stroke-width="2"/><circle cx="60" cy="45" r="18" fill="#f59e0b"/><text x="100" y="50" font-size="16" fill="#cbd5e1">➔</text><ellipse cx="150" cy="45" rx="25" ry="8" fill="#f59e0b"/><text x="110" y="75" font-size="11" fill="#38bdf8" text-anchor="middle">V_шинэ = ? см³</text></svg>` },
+            { id: 4, title: "Бодлого 5", text: "Мензуркэн дэх 200 мл усанд ижилхэн 2 ширхэг металл шараа дүрэхэд түвшин 280 мл болсон бол 1 ширхэг шарын эзлэхүүнийг ол.", correctAnswer: 40, unit: "см³", svg: `<svg width="220" height="90" viewBox="0 0 220 90"><rect x="10" y="10" width="200" height="70" fill="#1e293b" rx="8" stroke="#334155" stroke-width="2"/><circle cx="80" cy="45" r="12" fill="#94a3b8"/><circle cx="110" cy="45" r="12" fill="#94a3b8"/><text x="110" y="72" font-size="12" fill="#2dd4bf" text-anchor="middle" font-weight="bold">(280 - 200) / 2 = ? см³</text></svg>` },
+            { id: 5, title: "Бодлого 6", text: "90 см³ эзлэхүүнтэй биеийг 180 мл устай мензуркэд хийвэл шингэний шинэ түвшин $V_2$ хэдэн мл болох вэ?", correctAnswer: 270, unit: "мл", svg: `<svg width="220" height="90" viewBox="0 0 220 90"><rect x="10" y="10" width="200" height="70" fill="#1e293b" rx="8" stroke="#334155" stroke-width="2"/><text x="110" y="35" font-size="12" fill="#38bdf8" text-anchor="middle">V1 = 180 мл  |  V_бие = 90 см³</text><text x="110" y="60" font-size="13" fill="#fbbf24" text-anchor="middle" font-weight="extrabold">V2 = 180 + 90 = ? мл</text></svg>` },
+            { id: 6, title: "Бодлого 7", text: "Зөв биш хэлбэртэй биеийн масс 120 г, усанд дүрэхэд 40 мл ус түрэгдсэн бол нягтыг г/см³ нэгжээр олно уу.", correctAnswer: 3, unit: "г/см³", svg: `<svg width="220" height="90" viewBox="0 0 220 90"><rect x="10" y="10" width="200" height="70" fill="#1e293b" rx="8" stroke="#334155" stroke-width="2"/><text x="110" y="35" font-size="12" fill="#38bdf8" text-anchor="middle">m = 120 г  |  V = 40 см³</text><text x="110" y="60" font-size="13" fill="#2dd4bf" text-anchor="middle" font-weight="extrabold">ρ = m / V = ? г/см³</text></svg>` },
+            { id: 7, title: "Бодлого 8", text: "Сурагч 80 мл устай мензуркэд чулуу дүрэхэд заалт 115 мл болсон. Түрэгдсэн шингэний эзлэхүүн хэдэн мл вэ?", correctAnswer: 35, unit: "мл", svg: `<svg width="220" height="90" viewBox="0 0 220 90"><rect x="10" y="10" width="200" height="70" fill="#1e293b" rx="8" stroke="#334155" stroke-width="2"/><text x="110" y="35" font-size="12" fill="#38bdf8" text-anchor="middle">V1 = 80 мл  |  V2 = 115 мл</text><text x="110" y="60" font-size="13" fill="#fbbf24" text-anchor="middle" font-weight="extrabold">V_түр = ? мл</text></svg>` },
+            { id: 8, title: "Бодлого 9", text: "Баримлын шаврын массыг усанд дүрэхээс өмнө хэмжихэд 50 г байв. Усанд дүрсний дараа түүний масс өөрчлөгдөх үү? (г-ээр)", correctAnswer: 50, unit: "г", svg: `<svg width="220" height="90" viewBox="0 0 220 90"><rect x="10" y="10" width="200" height="70" fill="#1e293b" rx="8" stroke="#334155" stroke-width="2"/><text x="110" y="35" font-size="12" fill="#fbbf24" text-anchor="middle">m_анх = 50 г</text><text x="110" y="60" font-size="13" fill="#38bdf8" text-anchor="middle" font-weight="extrabold">m_дараа = ? г</text></svg>` },
+            { id: 9, title: "Бодлого 10", text: "Түрэгдсэн шингэний эзлэхүүн 0.05 л бол энэ нь хэдэн куб сантиметр (см³) болох вэ?", correctAnswer: 50, unit: "см³", svg: `<svg width="220" height="90" viewBox="0 0 220 90"><rect x="10" y="10" width="200" height="70" fill="#1e293b" rx="8" stroke="#334155" stroke-width="2"/><text x="110" y="35" font-size="12" fill="#2dd4bf" text-anchor="middle">0.05 л = 50 мл</text><text x="110" y="60" font-size="13" fill="#38bdf8" text-anchor="middle" font-weight="extrabold">1 мл = 1 см³ ➔ ? см³</text></svg>` }
+        ];
+
+        function initProblems() {
+            const container = document.getElementById('problems-container');
+            container.innerHTML = '';
+
+            physicsProblems.forEach((p) => {
+                const card = document.createElement('div');
+                card.className = "p-5 md:p-6 bg-slate-900 rounded-2xl border border-slate-800 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6";
+                card.id = `problem-card-${p.id}`;
+                
+                card.innerHTML = `
+                    <div class="flex-grow space-y-3 w-full">
+                        <span class="inline-block px-3 py-1 bg-sky-500/10 text-sky-400 border border-sky-500/20 rounded-lg text-xs font-bold">${p.title}</span>
+                        <p class="text-base font-semibold text-slate-100">${p.text}</p>
+                        
+                        <div class="flex items-center gap-3 pt-2">
+                            <span class="text-sm font-medium text-slate-400">Хариу:</span>
+                            <input type="number" step="any" id="problem-input-${p.id}" placeholder="Тоо оруулна уу" class="bg-slate-950 border border-slate-700 text-sky-400 font-extrabold px-4 py-2 rounded-xl w-36 focus:outline-none focus:border-sky-500 transition-colors">
+                            <span class="text-slate-300 font-bold">${p.unit}</span>
+                            <button onclick="checkSingleProblem(${p.id})" class="ml-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 px-4 py-2 rounded-xl text-xs font-bold transition-all">Шалгах</button>
+                        </div>
+                        <div id="problem-feedback-${p.id}" class="text-xs font-bold mt-2 hidden"></div>
+                    </div>
+                    
+                    <div class="flex items-center justify-center bg-slate-950 p-3 rounded-xl border border-slate-800 min-w-[230px] shrink-0">
+                        ${p.svg}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function checkSingleProblem(id) {
+            const p = physicsProblems[id];
+            const input = document.getElementById(`problem-input-${id}`);
+            const feedback = document.getElementById(`problem-feedback-${id}`);
+            const card = document.getElementById(`problem-card-${id}`);
+            const val = parseFloat(input.value);
+
+            feedback.classList.remove('hidden', 'text-emerald-400', 'text-red-400');
+
+            if (isNaN(val)) {
+                feedback.innerText = "Хариугаа оруулна уу!";
+                feedback.classList.add('text-amber-400');
+                return false;
+            }
+
+            if (Math.abs(val - p.correctAnswer) < 0.01) {
+                feedback.innerText = "✓ Зөв байна!";
+                feedback.classList.add('text-emerald-400');
+                card.className = "p-5 md:p-6 bg-slate-900 rounded-2xl border-2 border-emerald-500/80 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6";
+                return true;
+            } else {
+                feedback.innerText = `✕ Буруу! Зөв хариу: ${p.correctAnswer} ${p.unit}`;
+                feedback.classList.add('text-red-400');
+                card.className = "p-5 md:p-6 bg-slate-900 rounded-2xl border-2 border-red-500/80 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6";
+                return false;
+            }
+        }
+
+        function checkAllProblems() {
+            let correctCount = 0;
+            physicsProblems.forEach((p) => {
+                if (checkSingleProblem(p.id)) correctCount++;
+            });
+
+            const resultDiv = document.getElementById('problems-result');
+            resultDiv.classList.remove('hidden');
+
+            let gradeColor = correctCount >= 8 ? 'bg-emerald-950 border-emerald-500 text-emerald-300' : (correctCount >= 5 ? 'bg-amber-950 border-amber-500 text-amber-300' : 'bg-red-950 border-red-500 text-red-300');
+
+            resultDiv.className = `mt-8 p-8 rounded-2xl text-center shadow-2xl border-2 ${gradeColor}`;
+            resultDiv.innerHTML = `
+                <h2 class="text-3xl font-black mb-3">Бодлогын оноо: ${correctCount} / ${physicsProblems.length}</h2>
+                <p class="text-lg text-slate-200 font-medium">${correctCount >= 8 ? "Онц сайн! Та түрэгдсэн шингэний аргаар эзлэхүүн олох бодлогуудыг амжилттай бодлоо." : "Буруу бодсон даалгавраа дахин нягталж тооцоолоорой."}</p>
+            `;
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetProblems() {
+            physicsProblems.forEach((p) => {
+                document.getElementById(`problem-input-${p.id}`).value = '';
+                const feedback = document.getElementById(`problem-feedback-${p.id}`);
+                feedback.classList.add('hidden');
+                const card = document.getElementById(`problem-card-${p.id}`);
+                card.className = "p-5 md:p-6 bg-slate-900 rounded-2xl border border-slate-800 shadow-sm flex flex-col md:flex-row justify-between items-center gap-6";
+            });
+            document.getElementById('problems-result').classList.add('hidden');
+        }
+
+        // 10 ЗУРАГТАЙ СОРЫЛ АСУУЛТУУД
+        const quizQuestions = [
+            { 
+                q: "1. Зөв биш хэлбэртэй хатуу биеийн эзлэхүүнийг олох үндсэн томьёо аль нь вэ?", 
+                options: ["V = a × b × h", "V = V2 - V1", "V = V1 + V2", "V = m / V1"], 
+                correct: 1,
+                svg: `<svg width="180" height="70" viewBox="0 0 180 70"><rect x="10" y="10" width="160" height="50" fill="#0f172a" rx="8" stroke="#38bdf8" stroke-width="1.5"/><text x="90" y="40" font-size="14" fill="#38bdf8" text-anchor="middle" font-weight="bold">V = V2 - V1</text></svg>`
+            },
+            { 
+                q: "2. Зөв биш хэлбэртэй биеийн массыг хэзээ хэмжих нь хамгийн тохиромжтой вэ?", 
+                options: ["Усанд дүрсний дараа чийгтэй байхад", "Усанд дүрэхээс өмнө хуурай байхад", "Хэзээ ч хэмжсэн ялгаагүй", "Зөвхөн усанд хөвж байхад"], 
+                correct: 1,
+                svg: `<svg width="180" height="70" viewBox="0 0 180 70"><rect x="10" y="10" width="160" height="50" fill="#0f172a" rx="8" stroke="#fbbf24" stroke-width="1.5"/><text x="90" y="32" font-size="11" fill="#fbbf24" text-anchor="middle">1. Масс хэмжих (Хуурай)</text><text x="90" y="50" font-size="11" fill="#38bdf8" text-anchor="middle">2. Усанд дүрэх</text></svg>`
+            },
+            { 
+                q: "3. Баримлын шаврын хэлбэрийг өөрчлөхөд түүний эзлэхүүн хэрхэн өөрчлөгдөх вэ?", 
+                options: ["Хэлбэрээс хамаарч багасна", "Хэлбэрээс хамаарч ихэснэ", "Эзлэхүүн огт өөрчлөгдөхгүй", "Шаврыг сунгахад эзлэхүүн нэмэгдэнэ"], 
+                correct: 2,
+                svg: `<svg width="180" height="70" viewBox="0 0 180 70"><rect x="10" y="10" width="160" height="50" fill="#0f172a" rx="8" stroke="#2dd4bf" stroke-width="1.5"/><circle cx="50" cy="35" r="14" fill="#f59e0b"/><text x="85" y="40" font-size="14" fill="#cbd5e1">=</text><ellipse cx="125" cy="35" rx="20" ry="7" fill="#f59e0b"/></svg>`
+            },
+            { 
+                q: "4. Түрэгдсэн шингэний эзлэхүүн ($V_2 - V_1$) нь юутай тэнцүү байдаг вэ?", 
+                options: ["Савны нийт багтаамжтай", "Шингэнд бүрэн суусны дараах биеийн эзлэхүүнтэй", "Шингэний анхны масстай", "Мензуркийн хуваарийн үнэтэй"], 
+                correct: 1,
+                svg: `<svg width="180" height="70" viewBox="0 0 180 70"><rect x="10" y="10" width="160" height="50" fill="#0f172a" rx="8" stroke="#38bdf8" stroke-width="1.5"/><text x="90" y="40" font-size="12" fill="#2dd4bf" text-anchor="middle" font-weight="bold">V_түрэгдсэн = V_бие</text></svg>`
+            },
+            { 
+                q: "5. 1 куб сантиметр ($1\\text{ см}^3$) хатуу биеийн эзлэхүүн хэдэн миллилитр (мл) түрэгдсэн усаар илэрхийлэгдэх вэ?", 
+                options: ["10 мл", "1 мл", "0.1 мл", "100 мл"], 
+                correct: 1,
+                svg: `<svg width="180" height="70" viewBox="0 0 180 70"><rect x="10" y="10" width="160" height="50" fill="#0f172a" rx="8" stroke="#fbbf24" stroke-width="1.5"/><text x="90" y="40" font-size="14" fill="#fbbf24" text-anchor="middle" font-weight="extrabold">1 см³ = 1 мл</text></svg>`
+            },
+            { 
+                q: "6. Түрэгдсэн шингэний аргаар эзлэхүүн хэмжихэд аль бодис тохиромжгүй вэ?", 
+                options: ["Чулуу", "Төмөр эрээвэр", "Усанд амархан уусдаг сахар/давс", "Баримлын шавар"], 
+                correct: 2,
+                svg: `<svg width="180" height="70" viewBox="0 0 180 70"><rect x="10" y="10" width="160" height="50" fill="#0f172a" rx="8" stroke="#f43f5e" stroke-width="1.5"/><text x="90" y="40" font-size="12" fill="#f43f5e" text-anchor="middle" font-weight="bold">❌ Давс / Сахар (Уусдаг)</text></svg>`
+            },
+            { 
+                q: "7. Устай мензуркэд биеийг дүрэхэд заалт 140 мл-ээс 195 мл болж өссөн. Биеийн эзлэхүүн хэд вэ?", 
+                options: ["55 см³", "335 см³", "195 см³", "140 см³"], 
+                correct: 0,
+                svg: `<svg width="180" height="70" viewBox="0 0 180 70"><rect x="10" y="10" width="160" height="50" fill="#0f172a" rx="8" stroke="#38bdf8" stroke-width="1.5"/><text x="90" y="32" font-size="11" fill="#cbd5e1" text-anchor="middle">195 мл - 140 мл</text><text x="90" y="52" font-size="14" fill="#38bdf8" text-anchor="middle" font-weight="bold">= 55 см³</text></svg>`
+            },
+            { 
+                q: "8. Биеийг усанд дүрэхэд агаарын бөмбөлөг наалдсан байвал хэмжилтэд ямар нөлөө үзүүлэх вэ?", 
+                options: ["Эзлэхүүн бодит хэмжээнээсээ их гарна", "Эзлэхүүн бодит хэмжээнээсээ бага гарна", "Ямар ч нөлөө үзүүлэхгүй", "Масс нь багасна"], 
+                correct: 0,
+                svg: `<svg width="180" height="70" viewBox="0 0 180 70"><rect x="10" y="10" width="160" height="50" fill="#0f172a" rx="8" stroke="#fbbf24" stroke-width="1.5"/><circle cx="70" cy="35" r="12" fill="#f59e0b"/><circle cx="62" cy="28" r="3" fill="#38bdf8"/><circle cx="78" cy="40" r="4" fill="#38bdf8"/><text x="125" y="40" font-size="11" fill="#fbbf24">V_илүү > V_бодит</text></svg>`
+            },
+            { 
+                q: "9. Түрэгдсэн шингэний аргаар туршилт хийхэд биеийг усанд яаж дүрэх ёстой вэ?", 
+                options: ["Заавал хагас дүрнэ", "Бүрэн гүйцэд дүрж, савны хананд хүргэхгүй байх", "Усны гадаргуу дээр хөвүүлнэ", "Шиднэ"], 
+                correct: 1,
+                svg: `<svg width="180" height="70" viewBox="0 0 180 70"><rect x="10" y="10" width="160" height="50" fill="#0f172a" rx="8" stroke="#2dd4bf" stroke-width="1.5"/><text x="90" y="40" font-size="12" fill="#2dd4bf" text-anchor="middle" font-weight="bold">✓ Бүрэн дүрнэ</text></svg>`
+            },
+            { 
+                q: "10. Мензуркэн дэх усанд дүрсэн биеийг гаргаж ирэхэд мензуркэн дэх усны түвшин $V_1$ ямар болох вэ?", 
+                options: ["Ихэснэ", "Анх байсан V1 түвшиндээ буцаж очно", "Багасна", "Тэг болно"], 
+                correct: 1,
+                svg: `<svg width="180" height="70" viewBox="0 0 180 70"><rect x="10" y="10" width="160" height="50" fill="#0f172a" rx="8" stroke="#38bdf8" stroke-width="1.5"/><text x="90" y="40" font-size="12" fill="#38bdf8" text-anchor="middle" font-weight="bold">V1 (Буцаж хэвэндээ)</text></svg>`
+            }
+        ];
+
+        let userAnswers = {};
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            
+            quizQuestions.forEach((q, idx) => {
+                const div = document.createElement('div');
+                div.className = "p-5 md:p-6 bg-slate-900 rounded-2xl border border-slate-800 shadow-sm";
+                div.innerHTML = `
+                    <div class="flex flex-col md:flex-row gap-6 items-start justify-between">
+                        <div class="flex-grow w-full">
+                            <h3 class="text-base md:text-lg font-bold mb-4 text-slate-100">${q.q}</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="q-opts-${idx}">
+                                ${q.options.map((opt, i) => `
+                                    <button type="button" onclick="selectAnswer(${idx}, ${i})" class="quiz-opt-btn w-full text-left px-4 py-3 bg-slate-800 text-slate-200 font-medium text-sm rounded-xl border-2 border-slate-700 hover:border-slate-500 transition-all flex items-center">
+                                        <span class="inline-block w-7 h-7 rounded-full bg-slate-900 text-center leading-7 mr-3 text-xs font-bold text-slate-400 shrink-0">${String.fromCharCode(65+i)}</span>
+                                        <span>${opt}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center bg-slate-950 p-2 rounded-xl border border-slate-800 shrink-0 self-center md:self-start">
+                            ${q.svg}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function selectAnswer(qIdx, optIdx) {
+            if (localStorage.getItem(LOCAL_STORAGE_KEY) === 'true') return;
+            userAnswers[qIdx] = optIdx;
+            const container = document.getElementById(`q-opts-${qIdx}`);
+            const buttons = container.querySelectorAll('.quiz-opt-btn');
+            
+            buttons.forEach((btn, idx) => {
+                if (idx === optIdx) {
+                    btn.className = "quiz-opt-btn w-full text-left px-4 py-3 bg-sky-500 text-slate-950 font-bold text-sm rounded-xl transition-all shadow-md flex items-center border-2 border-sky-400";
+                } else {
+                    btn.className = "quiz-opt-btn w-full text-left px-4 py-3 bg-slate-800 text-slate-200 font-medium text-sm rounded-xl border-2 border-slate-700 hover:border-slate-500 transition-all flex items-center";
+                }
+            });
+            document.getElementById('quiz-warning').classList.add('hidden');
+        }
+
+        function calculateScore() {
+            if (localStorage.getItem(LOCAL_STORAGE_KEY) === 'true') return;
+
+            const name = document.getElementById('studentName').value.trim();
+            const studentClass = document.getElementById('studentClass').value.trim();
+
+            if (!name || !studentClass) {
+                alert('Нэр ба анги бүлгээ оруулна уу!');
+                return;
+            }
+
+            const answeredCount = Object.keys(userAnswers).length;
+            if (answeredCount < quizQuestions.length) {
+                const warningDiv = document.getElementById('quiz-warning');
+                warningDiv.innerText = `Та ${quizQuestions.length - answeredCount} асуултанд хариулаагүй байна. Бүрэн хариулж байж дүн илгээгдэнэ.`;
+                warningDiv.classList.remove('hidden');
+                return;
+            }
+
+            let score = 0;
+            let missedTopics = [];
+
+            quizQuestions.forEach((q, qIdx) => {
+                const userChoice = userAnswers[qIdx];
+                const container = document.getElementById(`q-opts-${qIdx}`);
+                const buttons = container.querySelectorAll('.quiz-opt-btn');
+
+                buttons.forEach((btn, optIdx) => {
+                    btn.disabled = true;
+                    btn.style.cursor = 'default';
+
+                    if (userChoice === optIdx && userChoice !== q.correct) {
+                        btn.className = "quiz-opt-btn w-full text-left px-4 py-3 bg-red-600 text-white font-bold text-sm rounded-xl flex items-center border-2 border-red-500 shadow-sm";
+                    } else if (userChoice === optIdx && userChoice === q.correct) {
+                        btn.className = "quiz-opt-btn w-full text-left px-4 py-3 bg-sky-500 text-slate-950 font-bold text-sm rounded-xl flex items-center border-2 border-sky-400";
+                    } else {
+                        btn.className = "quiz-opt-btn w-full text-left px-4 py-3 bg-slate-900 text-slate-500 font-medium text-sm rounded-xl border-2 border-slate-800 flex items-center opacity-50";
+                    }
+                });
+
+                if (userChoice === q.correct) {
+                    score++;
+                } else {
+                    const qNum = qIdx + 1;
+                    if (qNum === 1 || qNum === 4 || qNum === 7) missedTopics.push('Түрэгдсэн шингэний аргаар эзлэхүүн тооцоолох (V = V2 - V1)');
+                    else if (qNum === 2 || qNum === 8 || qNum === 9) missedTopics.push('Туршилтын арга зүй ба массыг зөв хэмжих');
+                    else if (qNum === 3) missedTopics.push('Биеийн хэлбэр өөрчлөгдөхөд эзлэхүүн үл өөрчлөгдөх чанар');
+                    else if (qNum === 5) missedTopics.push('Нэгж шилжүүлэх (1 см³ = 1 мл)');
+                    else if (qNum === 6) missedTopics.push('Усанд уусдаг бодисын эзлэхүүн хэмжих хязгаарлалт');
+                    else if (qNum === 10) missedTopics.push('Шингэний эзлэхүүний хадгалагдах чанар');
+                }
+            });
+
+            const percentage = (score / quizQuestions.length) * 100;
+            const uniqueMissed = [...new Set(missedTopics)];
+
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.classList.remove('hidden');
+            
+            let gradeColor = score >= 8 ? 'bg-emerald-950 border-emerald-500 text-emerald-300' : (score >= 5 ? 'bg-amber-950 border-amber-500 text-amber-300' : 'bg-red-950 border-red-500 text-red-300');
+            
+            let feedbackHTML = `<h2 class="text-3xl font-black mb-2">${name} (${studentClass})</h2>`;
+            feedbackHTML += `<p class="text-2xl font-bold mb-3">Сорилын оноо: ${score} / ${quizQuestions.length} (${percentage}%)</p>`;
+            
+            if (uniqueMissed.length > 0) {
+                feedbackHTML += `<p class="text-sm font-semibold text-red-300 border-t border-slate-700/60 pt-3">Давтвал зохих агуулга: ${uniqueMissed.join(', ')}</p>`;
+            } else {
+                feedbackHTML += `<p class="text-sm font-semibold text-emerald-300 border-t border-slate-700/60 pt-3">🎉 Баяр хүргэе! Түрэгдсэн шингэний аргаар зөв биш хэлбэртэй биеийн эзлэхүүн ба масс тодорхойлох сэдвийг бүрэн ойлгожээ.</p>`;
+            }
+
+            resultDiv.className = `mt-8 p-8 rounded-2xl text-center shadow-2xl border-2 ${gradeColor}`;
+            resultDiv.innerHTML = feedbackHTML;
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+
+            document.getElementById('sendContainer').innerHTML = `<p class="text-sky-400 font-bold text-sm animate-pulse">📤 Дүнг багшийн Google Sheet рүү илгээж байна...</p>`;
+
+            localStorage.setItem(LOCAL_STORAGE_KEY, 'true');
+            lockQuizUI();
+
+            fetch(GOOGLE_APP_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify({
+                    sheetName: CURRENT_LESSON_SHEET,
+                    name: name,
+                    studentClass: studentClass,
+                    score: score,
+                    percentage: percentage,
+                    missedTopics: uniqueMissed.length > 0 ? uniqueMissed.join(' | ') : 'Ойлгоогүй зүйл байхгүй',
+                    timestamp: new Date().toLocaleString()
+                })
+            }).then(() => {
+                document.getElementById('sendContainer').innerHTML = `<p class="text-emerald-400 font-bold text-sm">✅ Таны дүн "${CURRENT_LESSON_SHEET}" шийт рүү амжилттай бүртгэгдлээ!</p>`;
+            });
+        }
+
+        function resetQuiz() {
+            if (localStorage.getItem(LOCAL_STORAGE_KEY) === 'true') return;
+            userAnswers = {};
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('quiz-warning').classList.add('hidden');
+            document.getElementById('sendContainer').innerHTML = '';
+            initQuiz();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
