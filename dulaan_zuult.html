@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дулаан зөөлт - 9-р анги</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8fafc;
+        }
+        .tab-active { background-color: #f97316; color: white; }
+        .tab-inactive { background-color: #e2e8f0; color: #475569; }
+        .law-card {
+            border-left: 4px solid #f97316;
+            background-color: #fff7ed;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .formula-box {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ea580c;
+            background: #ffedd5;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen pb-10">
+
+    <header class="bg-orange-600 border-b border-orange-700 p-6 shadow-md text-center">
+        <h1 class="text-3xl font-bold text-white">Физикийн хичээл: Дулаан зөөлт</h1>
+        <p class="mt-2 text-orange-100 font-light">9-р анги | Дулаан дамжуулалт, Конвекц, Цацаргалт</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto mt-8 px-4">
+        
+        <!-- Цэс -->
+        <div class="flex flex-wrap justify-center gap-1 sm:gap-2 mb-6">
+            <button onclick="showTab('theory')" id="btn-theory" class="tab-active px-3 py-2 rounded-t-lg font-bold text-xs sm:text-sm transition-all">1. Онол ба Дүрэм</button>
+            <button onclick="showTab('experiment')" id="btn-experiment" class="tab-inactive px-3 py-2 rounded-t-lg font-bold text-xs sm:text-sm transition-all">2. Интерактив туршилт</button>
+            <button onclick="showTab('concept')" id="btn-concept" class="tab-inactive px-3 py-2 rounded-t-lg font-bold text-xs sm:text-sm transition-all">3. Чанарын бодлого</button>
+            <button onclick="showTab('tasks')" id="btn-tasks" class="tab-inactive px-3 py-2 rounded-t-lg font-bold text-xs sm:text-sm transition-all">4. Түвшинчилсэн даалгавар</button>
+            <button onclick="showTab('quiz')" id="btn-quiz" class="tab-inactive px-3 py-2 rounded-t-lg font-bold text-xs sm:text-sm transition-all">5. Сорил (15)</button>
+        </div>
+
+        <div class="bg-white p-6 sm:p-8 rounded-b-lg shadow-xl border-t-4 border-orange-500 min-h-[500px]" id="mainContentCard">
+            
+            <!-- 1. ОНОЛ БА ҮЗЭГДЭЛ -->
+            <div id="theory" class="block space-y-8">
+                <section class="space-y-4">
+                    <h2 class="text-2xl font-bold text-orange-700 border-b border-slate-200 pb-2 mb-4 font-bold">Дулаан зөөлт ба түүний хэлбэрүүд</h2>
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        Биесийн хооронд эсвэл нэг биеийн температурын зөрүүтэй хэсгүүдийн хооронд дулаан шилжих процессыг <strong>дулаан зөөлт</strong> гэнэ. Термодинамикийн хуулиар дулаан нь үргэлж өндөр температуртай биеэс бага температуртай бие рүү чиглэж шилждэг.
+                    </p>
+                    <p class="text-md leading-relaxed text-gray-600">
+                        Хатуу, шингэн, хийн төлөв байдал болон орчны онцлогоос хамааран дулаан зөөлт нь дараах 3 үндсэн хэлбэрээр явагддаг.
+                    </p>
+
+                    <!-- ДУЛААН ЗӨӨЛТИЙН ХЭЛБЭРҮҮДИЙН СХЕМ ЗУРАГ -->
+                    <div class="bg-orange-50 p-6 rounded-xl border border-orange-100 my-4">
+                        <div class="flex flex-col md:flex-row items-center gap-8">
+                            <div class="w-full md:w-3/5 flex justify-center bg-slate-900 p-4 rounded-lg shadow-sm border border-gray-700">
+                                <svg viewBox="0 0 540 240" width="100%" height="220" class="max-w-[500px]">
+                                    <!-- Гал (Дулааны үүсгэгч) -->
+                                    <path d="M 230 180 Q 270 90 270 110 Q 270 90 310 180 Z" fill="#f97316" />
+                                    <path d="M 250 180 Q 270 120 270 130 Q 270 120 290 180 Z" fill="#ef4444" />
+                                    <path d="M 260 180 Q 270 140 270 145 Q 270 140 280 180 Z" fill="#f59e0b" />
+                                    <text x="270" y="200" fill="#f59e0b" font-size="12" font-weight="bold" text-anchor="middle">Дулааны үүсгэгч (Гал)</text>
+
+                                    <!-- 1. Дамжуулалт (Төмөр саваа сунгасан) -->
+                                    <rect x="50" y="110" width="180" height="10" fill="#94a3b8" rx="2" />
+                                    <circle cx="50" cy="115" r="8" fill="#ef4444" />
+                                    <text x="130" y="100" fill="#cbd5e1" font-size="10" text-anchor="middle">Төмөр саваа</text>
+                                    <text x="130" y="135" fill="#f87171" font-size="11" font-weight="bold" text-anchor="middle">1. Дамжуулалт</text>
+
+                                    <!-- 2. Конвекц (Дээшээ чиглэсэн халуун агаар) -->
+                                    <path d="M 255 90 Q 260 70 255 50 M 270 90 Q 275 60 270 40 M 285 90 Q 290 70 285 50" stroke="#f43f5e" stroke-width="2.5" fill="none" stroke-linecap="round" />
+                                    <text x="270" y="30" fill="#f43f5e" font-size="11" font-weight="bold" text-anchor="middle">2.  Конвекц</text>
+
+                                    <!-- 3. Цацаргалт (Хажуу тийш тарах цацаргалт долгион) -->
+                                    <path d="M 330 140 C 350 135, 370 145, 390 140 C 410 135, 430 145, 450 140" stroke="#fb923c" stroke-width="2" fill="none" />
+                                    <path d="M 330 160 C 350 155, 370 165, 390 160 C 410 155, 430 165, 450 160" stroke="#fb923c" stroke-width="2" fill="none" />
+                                    <text x="400" y="125" fill="#fb923c" font-size="11" font-weight="bold" text-anchor="middle">3. Цацаргалт</text>
+                                </svg>
+                            </div>
+                            <div class="w-full md:w-2/5 space-y-2 text-sm text-gray-700">
+                                <p class="font-bold text-orange-700">Дулаан зөөгдөх үндсэн 3 зам:</p>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-600">
+                                    <li><strong>Дамжуулалт:</strong> Хатуу биетийг халаахад жижиг хэсгүүдийн хэлбэлзэх хөдөлгөөн хүчтэй болж, зэргэлдээх молекулуудаа мөргөх замаар энерги дамжих үйл явц.</li>
+                                    <li><strong>Конвекц:</strong> Шингэн болон хий халахад нягт нь багасан дээш хөөрч урсгалаар дулаан зөөгдөх үйл явц.</li>
+                                    <li><strong>Цацаргалт:</strong> Цахилгаан соронзон долгионоор (вакуумд ч тарна) дулаан зөөгдөх үйл явц.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-sm">
+                        <!-- Дамжуулалтын хууль -->
+                        <div class="p-4 bg-orange-50 rounded-lg border border-orange-100">
+                            <h3 class="font-bold text-orange-700 mb-2 font-bold">Дулаан дамжуулалт</h3>
+                            <p class="text-xs text-gray-600 mb-2">Фуртьегийн хуулиар дамжих дулааны хэмжээ (Q) нь материалын дулаан дамжуулалтын коэффициент (k), хананы талбай (S), температурын зөрүү (ΔT)-тэй шууд хамаарна.</p>
+                            <div class="formula-box text-xs">Q = (k · S · ΔT · t) / d</div>
+                        </div>
+                        <!-- Конвекцийн хууль -->
+                        <div class="p-4 bg-orange-50 rounded-lg border border-orange-100">
+                            <h3 class="font-bold text-orange-700 mb-2 font-bold">Конвекц</h3>
+                            <p class="text-xs text-gray-600 mb-2">Шингэн болон хий халахад эзэлхүүн нь тэлж, нягт нь буурдаг. Нягт багатай халуун хэсэг дээш хөөрч, дээрх хүйтэн хэсэг доош унах замаар эргэлтийн урсгал үүснэ.</p>
+                            <span class="inline-block bg-orange-200 px-2 py-1 rounded text-xs text-orange-800 font-bold">Халуун дээшлэнэ, хүйтэн доошилно</span>
+                        </div>
+                        <!-- Цацаргалтын хууль -->
+                        <div class="p-4 bg-orange-50 rounded-lg border border-orange-100">
+                            <h3 class="font-bold text-orange-700 mb-2 font-bold">Дулааны цацаргалт</h3>
+                            <p class="text-xs text-gray-600 mb-2">Дулаан нь хэт улаан туяаны долгионоор вакуум орчинд ч тардаг. Стефан-Больцманы хуулиар цацаргах дулааны эрчим нь температурын дөрөв зэрэгтэй пропорциональ байна.</p>
+                            <div class="formula-box text-xs">P ∝ T⁴</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- 2. ИНТЕРАКТИВ ТУРШИЛТ (МОЛЕКУЛЫН ХӨДӨЛГӨӨН БА ДУЛААН ДАМЖУУЛАЛТ) -->
+            <div id="experiment" class="hidden space-y-6">
+                <div class="bg-slate-900 p-4 sm:p-6 rounded-xl border border-slate-800 shadow-sm text-slate-200">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                        <!-- Горим сонгох -->
+                        <div class="flex flex-col gap-2">
+                            <label class="font-bold text-slate-300 text-sm">Дулаан зөөлтийн хэлбэр:</label>
+                            <select id="transferMode" onchange="changeMode()" class="bg-slate-800 border-2 border-orange-500 rounded-lg p-2 text-sm font-bold text-white focus:outline-none">
+                                <option value="conduction">Дамжуулалт (Молекулын чичирхийлэл)</option>
+                                <option value="convection">Конвекц (Шингэн/Хийн урсгал)</option>
+                                <option value="radiation">Цацаргалт (Гэрлийн долгион)</option>
+                            </select>
+                        </div>
+
+                        <!-- Слайдер 1:  Температур (Халаагч) -->
+                        <div class="flex flex-col gap-2">
+                            <label class="font-bold text-slate-300 text-sm" id="sliderLabel">Халаагчийн температур (T):</label>
+                            <div class="flex items-center gap-3">
+                                <input type="range" id="tempSlider" min="0" max="600" value="0" class="flex-grow accent-orange-500">
+                                <span id="tempValueDisplay" class="bg-orange-600 text-white px-3 py-1.5 rounded font-bold text-md min-w-[75px] text-center shadow-md">0°C</span>
+                            </div>
+                        </div>
+
+                        <!-- Слайдер 2: Холбоос хүчний зэрэг (Биетийн төрөл) -->
+                        <div class="flex flex-col gap-2">
+                            <label class="font-bold text-slate-300 text-sm" id="propLabel">Савааны материал сонгох:</label>
+                            <select id="materialSelect" onchange="changeMaterial()" class="bg-slate-800 border-2 border-slate-600 rounded-lg p-2 text-sm font-bold text-white focus:outline-none">
+                                <option value="iron">Төмөр (Хатуу, дундаж дамжуулалт)</option>
+                                <option value="lead">Хар тугалга (Зөөлөн, хурдан хэлбэлзэл)</option>
+                                <option value="diamond">Алмаз (Бат бөх, дулаан хурдан дамжуулна)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Симуляцийн самбар -->
+                    <div class="relative bg-slate-950 rounded-2xl overflow-hidden border-8 border-slate-800 shadow-2xl flex justify-center items-center">
+                        <canvas id="moleculeCanvas" width="760" height="380" class="w-full h-auto"></canvas>
+                    </div>
+
+                    <!-- Амьд тооцоолуур картууд -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 text-sm">
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700 text-center text-slate-100">
+                            <div class="text-xs text-slate-400" id="cardLabel1">Үүсгэгчийн температур</div>
+                            <div id="metric1" class="text-lg font-bold text-orange-400">0 °C</div>
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700 text-center text-slate-100">
+                            <div class="text-xs text-slate-400" id="cardLabel2">Биеийн дундаж температур</div>
+                            <div id="metric2" class="text-lg font-bold text-slate-100">0 °C</div>
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700 text-center text-slate-100">
+                            <div class="text-xs text-slate-400" id="cardLabel3">Дамжуулалтын хурд (Бат бөх)</div>
+                            <div id="metric3" class="text-lg font-bold text-amber-400">Сул</div>
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700 text-center text-slate-100">
+                            <div class="text-xs text-slate-400" id="cardLabel4">Макро тэлэлтийн хувь</div>
+                            <div id="metric4" class="text-lg font-bold text-green-400">0.00 %</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-4 bg-slate-800 rounded-xl text-center text-sm border border-slate-700 text-slate-100">
+                        <div class="text-slate-400 text-xs">Төлөв байдал:</div>
+                        <span id="experimentStatus" class="font-bold text-lg text-orange-400">Хүлээгдэж байна...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. ЧАНАРЫН БОДЛОГО (CONCEPTUAL PROBLEMS) -->
+            <div id="concept" class="hidden space-y-6">
+                <div class="border-b border-slate-200 pb-4">
+                    <h2 class="text-2xl font-bold text-orange-700">Дулаан зөөлтийн чанарын бодлогууд</h2>
+                    <p class="text-slate-500 text-sm mt-1">Дулаан шилжих үзэгдлийг амьдрал дээрх жишээн дээр тайлбарлаж, өөрийн хариултыг шалгаарай.</p>
+                </div>
+
+                <!-- Бодлого 1 -->
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-base">Асуулт 1: Сансрын скафандрын өнгө</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">
+                        Сансрын нисгэгчид яагаад задгай сансарт ажиллахдаа үргэлж гялалзсан цагаан эсвэл мөнгөлөг өнгөтэй скафандр өмсдөг вэ? Энэ нь дулаан зөөлтийн ямар хэлбэртэй холбоотой вэ?
+                    </p>
+                    <textarea id="concept_ans_1" class="w-full h-24 p-3 border-2 border-slate-200 rounded-xl text-sm focus:border-orange-500 focus:outline-none" placeholder="Өөрийн таамаглал, хариултыг энд бичнэ үү..."></textarea>
+                    <button onclick="toggleConcept(1)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-lg text-xs font-bold transition-all shadow">Хариулт ба Түлхүүр тайлбар харах</button>
+                    <div id="concept_feedback_1" class="hidden p-4 rounded-xl text-sm border bg-orange-50 border-orange-200 text-orange-900 leading-relaxed">
+                        <b>Шинжлэх ухааны тайлбар:</b><br>
+                        Сансарт агаар буюу бодис байхгүй (вакуум) тул дулаан зөвхөн <strong>цацаргалт</strong> хэлбэрээр зөөгддөг. Нарнаас ирэх хүчтэй дулааны цацаргалтыг цагаан болон мөнгөлөг өнгө нь хамгийн сайн ойлгож буцаадаг. Ингэснээр скафандр доторх нисгэгч наранд хэт халахаас, мөн скафандр доторх дулааныг сансрын хүйтэн орон зайд цацаргалтаар алдахаас сэргийлдэг байна.
+                    </div>
+                </div>
+
+                <!-- Бодлого 2 -->
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-base">Асуулт 2: Усны шувуудын өд</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">
+                        Өвлийн хүйтэнд голын усанд сэлж буй нугас, галуу зэрэг шувууд уснаас гараад яагаад даарч чичрэхгүйгээр дулаанаа төгс хадгалж чаддаг вэ? Тэдний өд сөд ямар үүрэгтэй вэ?
+                    </p>
+                    <textarea id="concept_ans_2" class="w-full h-24 p-3 border-2 border-slate-200 rounded-xl text-sm focus:border-orange-500 focus:outline-none" placeholder="Өөрийн таамаглал, хариултыг энд бичнэ үү..."></textarea>
+                    <button onclick="toggleConcept(2)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-lg text-xs font-bold transition-all shadow">Хариулт ба Түлхүүр тайлбар харах</button>
+                    <div id="concept_feedback_2" class="hidden p-4 rounded-xl text-sm border bg-orange-50 border-orange-200 text-orange-900 leading-relaxed">
+                        <b>Шинжлэх ухааны тайлбар:</b><br>
+                        Усны шувуудын өд сөд нь маш нарийн бүтэцтэй бөгөөд өд бүрийн завсарт их хэмжээний агаар хуримтлагдан түгжигддэг. <strong>Агаар нь дулаан дамжуулалт туйлын муутай (дулаан тусгаарлагч) орчин юм.</strong> Мөн тэдгээр агаарын урсгал хөдлөхгүй учир <strong>конвекц</strong> явагдахгүй. Ингэснээр шувууны биеийн дулаан гадагш алдагдахаас хамгийн найдвартай дулааны бамбай болж өгдөг байна.
+                    </div>
+                </div>
+
+                <!-- Бодлого 3 -->
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-base">Асуулт 3: Төмөр ба Модны температурын мэдрэмж</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">
+                        Хүйтэн өвлийн өдөр гадаа сүүдэрт яг ижилхэн температуртай байгаа төмөр сандал, модон вандан хоёрын төмөр дээр суухад яагаад модноос илүү хүйтэн мэдрэгддэг вэ? Тэдгээрийн температур үнэхээр өөр өөр байна уу?
+                    </p>
+                    <textarea id="concept_ans_3" class="w-full h-24 p-3 border-2 border-slate-200 rounded-xl text-sm focus:border-orange-500 focus:outline-none" placeholder="Өөрийн таамаглал, хариултыг энд бичнэ үү..."></textarea>
+                    <button onclick="toggleConcept(3)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-lg text-xs font-bold transition-all shadow">Хариулт ба Түлхүүр тайлбар харах</button>
+                    <div id="concept_feedback_3" class="hidden p-4 rounded-xl text-sm border bg-orange-50 border-orange-200 text-orange-900 leading-relaxed">
+                        <b>Шинжлэх ухааны тайлбар:</b><br>
+                        Хоёр биеийн температур гадаад орчны нөлөөгөөр яг адилхан байгаа. Гэвч <strong>төмрийн дулаан дамжуулах чадвар (k) нь модныхоос хэдэн зуу дахин их</strong> юм. Бид төмөр дээр суух үед төмөр нь бидний биеийн дулааныг асар хурдтайгаар өөртөө дамжуулан шингээж авдаг. Харин мод нь дулааныг маш удаан дамжуулдаг тул дулаан алдалт бага явагдаж, илүү бүлээн мэт мэдрэгддэг байна. Бидний мэдэрч буй хүйтэн нь температурын биш, харин дулаан алдаж буй хурдны мэдрэмж юм.
+                    </div>
+                </div>
+
+                <!-- Box 4 -->
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-base">Асуулт 4: Гол мөрөн дээрээсээ хөлдөх үзэгдэл</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">
+                        Гол, нуурын ус өвлийн улиралд хөлдөхдөө яагаад ёроолоосоо биш заавал дээрээсээ (гадаргуугаасаа) хөлдөж эхэлдэг вэ? Усны конвекц ба нягтын онцлог үүнд хэрхэн нөлөөлдөг вэ?
+                    </p>
+                    <textarea id="concept_ans_4" class="w-full h-24 p-3 border-2 border-slate-200 rounded-xl text-sm focus:border-orange-500 focus:outline-none" placeholder="Өөрийн таамаглал, хариултыг энд бичнэ үү..."></textarea>
+                    <button onclick="toggleConcept(4)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-lg text-xs font-bold transition-all shadow">Хариулт ба Түлхүүр тайлбар харах</button>
+                    <div id="concept_feedback_4" class="hidden p-4 rounded-xl text-sm border bg-orange-50 border-orange-200 text-orange-900 leading-relaxed">
+                        <b>Шинжлэх ухааны тайлбар:</b><br>
+                        Ус нь 4°C температуртай байхдаа хамгийн их нягттай байдаг гаж шинж чанартай. Намар ус хөрөх явцад 4°C-тэй хамгийн хүнд (нягт ихтэй) ус нь <strong>конвекц</strong> урсгалаар нуурын ёроолд тунаж үлддэг. Харин гадаргуу дээрх ус улам хөрч 0°C рүү дөхөхөд нягт нь буурч хөнгөрөх тул гадаргуу дээрээ үлдэж дээрээсээ хөлддөг. Энэхүү байгалийн гайхамшигт хуулийн ачаар нуурын ёроол хөлддөггүй бөгөөд загас, усан доорх амьтад өвлийг аюулгүй давж чаддаг байна.
+                    </div>
+                </div>
+
+                <!-- Бодлого 5 -->
+                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-base">Асуулт 5: Харанхуй өнгөтэй дулаан хуримтлуулагч</h3>
+                    <p class="text-gray-700 text-sm leading-relaxed">
+                        Нарны эрчим хүчээр ажилладаг ус халаагч коллекторууд болон зуслангийн байшингийн дээвэр дээрх усны савыг яагаад заавал хар өнгөөр буддаг вэ?
+                    </p>
+                    <textarea id="concept_ans_5" class="w-full h-24 p-3 border-2 border-slate-200 rounded-xl text-sm focus:border-orange-500 focus:outline-none" placeholder="Өөрийн таамаглал, хариултыг энд бичнэ үү..."></textarea>
+                    <button onclick="toggleConcept(5)" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-lg text-xs font-bold transition-all shadow">Хариулт ба Түлхүүр тайлбар харах</button>
+                    <div id="concept_feedback_5" class="hidden p-4 rounded-xl text-sm border bg-orange-50 border-orange-200 text-orange-900 leading-relaxed">
+                        <b>Шинжлэх ухааны тайлбар:</b><br>
+                        Гэрэл болон дулаан зөөлтийн хуулиар хар бараан өнгөтэй гадаргуу нь нарнаас ирж буй хэт улаан туяа буюу <strong>дулааны цацаргалтыг</strong> хамгийн өндөр хурдтайгаар (95%-иас дээш) шингээж авдаг. Харин цайвар өнгөнүүд дулааныг ойлгоод буцаачихдаг. Иймээс усыг хамгийн богино хугацаанд нарын илчээр халаахын тулд сав болон коллекторыг хар өнгөөр буддаг байна.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. ТҮВШИНЧИЛСЭН ДААЛГАВАР (ИНТЕРАКТИВ БОДЛОГУУД) -->
+            <div id="tasks" class="hidden space-y-8">
+                <div class="border-b border-slate-200 pb-4">
+                    <h2 class="text-2xl font-bold text-orange-700">Түвшинчилсэн интерактив бодлогууд</h2>
+                    <p class="text-slate-500 text-sm mt-1">Онолоо бататгаж, өөрийн гараар тооцоо хийж шалгаарай. Хариугаа бичээд "Шалгах" товчийг дарна уу.</p>
+                </div>
+
+                <!-- I ТҮВШИН: СУУРЬ БОДЛОГО -->
+                <div class="space-y-6">
+                    <h3 class="text-lg font-bold text-blue-600 border-b pb-1">I Түвшин: Суурь бодлого (5 даалгавар)</h3>
+                    
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 1.1: Дулааны урсгалын чиглэл</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            80°C температуртай халуун цайнд 20°C температуртай мөнгөн халбага хийв. Дулаан нь хаанаас хаашаа шилжих вэ? Зөв хариултын тоог бичнэ үү.<br>
+                            1. Халбаганаас цай руу шилжинэ.<br>
+                            2. Цайнаас халбага руу шилжинэ.<br>
+                            3. Дулаан шилжихгүй.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task1_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <button onclick="checkTask(1, 2)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task1_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 1.2: Температурын зөрүү</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Өрөөний температур 20°C, гадна агаарын температур -15°C байв. Цонхны дотор болон гадна талын температурын зөрүүг (ΔT) Цельсийн хэмээр олно уу.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task2_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <span class="text-slate-500 text-sm font-bold">°C</span>
+                            <button onclick="checkTask(2, 35)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task2_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 1.3: Конвекцын урсгалын чиглэл</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Шингэнийг халаахад түүний нягт нь яаж өөрчлөгдөх вэ? Зөв хариултын тоог бичнэ үү.<br>
+                            1. Нягт нь ихсэж, дээш хөөрно.<br>
+                            2. Нягт нь багасаж, дээш хөөрнө.<br>
+                            3. Нягт нь багасаж, доош унана.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task3_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <button onclick="checkTask(3, 2)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task3_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 1.4: Вакуум орчин дахь дулаан зөөлт</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Вакуум орчинд (агааргүй хоосон орон зайд) дулаан зөөлтийн ямар хэлбэр нь явагдаж чаддаг вэ? Зөв хариултын тоог бичнэ үү.<br>
+                            1. Зөвхөн дулаан дамжуулалт.<br>
+                            2. Зөвхөн конвекц.<br>
+                            3. Зөвхөн дулааны цацаргалт.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task4_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <button onclick="checkTask(4, 3)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task4_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 1.5: Хамгийн сайн дулаан дамжуулагч</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Зэс, төмөр, шил гурвын аль нь дулааныг хамгийн хурдан бөгөөд сайн дамжуулдаг вэ? Нэрийг нь кириллээр бичнэ үү. (зэс, төмөр, шил)
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="text" id="task5_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулt">
+                            <button onclick="checkTextTask(5, 'зэс')" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task5_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+                </div>
+
+                <!-- II ТҮВШИН: ХЭРЭГЛЭЭ БА АНАЛИЗ -->
+                <div class="space-y-6 pt-6 border-t border-slate-200">
+                    <h3 class="text-lg font-bold text-amber-600 border-b pb-1">II Түвшин: Хэрэглээ ба Анализ (5 даалгавар)</h3>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 2.1: Дулааны баланс</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            80°C температуртай 1 кг халуун усыг 20°C температуртай 1 кг хүйтэн устай холив. Дулааны алдагдлыг тооцохгүй бол холимог усны эцсийн температурыг олно уу.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task6_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <span class="text-slate-500 text-sm font-bold">°C</span>
+                            <button onclick="checkTask(6, 50)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task6_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 2.2: Индүүний ажиллах зарчим</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Цахилгаан индүү болон үсний хайчинд температур тохируулах зорилгоор хоёр өөр металлыг нааж хийсэн ялтсыг ашигладаг. Үүнийг физикт юу гэж нэрлэдэг вэ?<br>
+                            1. Монометалл ялтас<br>
+                            2. Биметалл (хос металл) ялтас<br>
+                            3. Хагас дамжуулагч
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task7_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <button onclick="checkTask(7, 2)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task7_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 2.3: Нарнаас ирэх дулаан</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Нарнаас ирэх дулаан дэлхий хүртэл сансрын вакуум орон зайгаар дамжин ирдэг. Энэ нь дулаан зөөлтийн ямар төрөлд хамаарах вэ? Зөв хариултын тоог бичнэ үү.<br>
+                            1. Дамжуулалт<br>
+                            2. Конвекц<br>
+                            3. Цацаргалт
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task8_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <button onclick="checkTask(8, 3)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task8_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 2.4: Халуун савны дулаан тусгаарлалт</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Халуун савны (термос) шилэн дотор хананы хооронд вакуум үүсгэдэг нь дулаан алдагдлын ямар хэлбэрүүдийг бүрэн зогсоох зорилготой вэ? <br>
+                            1. Зөвхөн цацаргалт<br>
+                            2. Дамжуулалт болон конвекц<br>
+                            3. Зөвхөн дамжуулалт
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task9_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <button onclick="checkTask(9, 2)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task9_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 2.5: Зуухны байршил</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Гэрийн дулаан агааржуулагч зуухыг үргэлж шалны ойролцоо, харин хөргүүрийг таазны ойролцоо байрлуулдаг нь дулаан зөөлтийн ямар үзэгдэлтэй холбоотой вэ? Нэрийг нь кириллээр бичнэ үү. (дамжуулалт, конвекц, цацаргалт)
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="text" id="task10_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <button onclick="checkTextTask(10, 'конвекц')" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task10_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+                </div>
+
+                <!-- III ТҮВШИН: БОДЛОГО БОДОЛТ -->
+                <div class="space-y-6 pt-6 border-t border-slate-200">
+                    <h3 class="text-lg font-bold text-purple-600 border-b pb-1">III Түвшин:  Бодлого бодолт, Гүнзгийрүүлсэн түвшин (5 даалгавар)</h3>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 3.1: Фуртьегийн хуулиар дулаан олох</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Хавтангийн талбай нь <strong>2 м²</strong>, зузаан нь <strong>0.01 м</strong> төмөр хавтангийн хоёр талын температурын зөрүү <strong>10°C</strong> байв. Тэгвэл хавтангаар <strong>5 секундэд</strong> дамжих дулааны хэмжээг Жоулиэр олно уу. <br>
+                            <span class="text-xs text-gray-500 font-semibold">(Төмрийн дулаан дамжуулалтын коэффициент k = 80 Вт/(м·°C))</span>
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task11_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <span class="text-slate-500 text-sm font-bold">Ж</span>
+                            <button onclick="checkTask(11, 80000)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task11_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 3.2: Дулааны багтаамжтай баланс</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            80°C температуртай <strong>2 кг</strong> усан дотор 20°C температуртай <strong>1 кг</strong> төмөр биет хийв. Системийн эцсийн температурыг бүхэл тоогоор олно уу. <br>
+                            <span class="text-xs text-gray-500 font-semibold">(Усны хувийн дулаан багтаамж C_ус = 4200 Ж/(кг·°C), Төмрийн C_төмөр = 460 Ж/(кг·°C))</span>
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task12_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <span class="text-slate-500 text-sm font-bold">°C</span>
+                            <button onclick="checkTask(12, 77)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task12_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 3.3: Температурын 4 зэргийн хууль</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Биеийн абсолют температурыг <strong>300 К</strong>-ээс <strong>600 К</strong> болгон 2 дахин ихэсгэв. Тэгвэл Стефан-Больцманы хуулиар түүний цацаргах дулааны эрчим хэд дахин ихсэх вэ?
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task13_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <span class="text-slate-500 text-sm font-bold">дахин</span>
+                            <button onclick="checkTask(13, 16)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task13_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 3.4: Хос шилэн цонхны шилжилт</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Орчин үеийн барилгад хоёр давхар шилтэй цонх ашигладаг. Энэ нь цонхны дулаан алдагдлыг багасгадаг. Шилний дулаан дамжуулах коэффициент агаарынхаас бараг 40 дахин их байдаг. Хоёр шилний хоорондох агаарын үүргийг юу гэж дүгнэх вэ? Зөв тоог бичнэ үү.<br>
+                            1. Агаар нь дулааныг маш сайн дамжуулдаг.<br>
+                            2. Агаарын дулаан дамжуулалт маш бага тул дулаан тусгаарлагч болдог.<br>
+                            3. Агаар нь цацаргалт туяаг сарниулдаг.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task14_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <button onclick="checkTask(14, 2)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task14_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200 space-y-4">
+                        <h4 class="font-bold text-slate-800 text-sm">Даалгавар 3.5: Дулааны урсгал ба Төмөр хана</h4>
+                        <p class="text-gray-700 text-sm leading-relaxed">
+                            Нэгэн байшингийн тоосгон хананы зузааныг <strong>2 дахин ихэсгэв</strong>. Хэрэв хананы хоёр талын температурын зөрүү хэвээр үлдвэл ханаар дамжих дулааны алдагдал хэрхэн өөрчлөгдөх вэ? Зөв тоог бичнэ үү.<br>
+                            1. 2 дахин ихэснэ.<br>
+                            2. 2 дахин багасна.<br>
+                            3. 4 дахин багасна.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                            <input type="number" id="task15_input" class="w-40 rounded-lg border-2 border-slate-200 p-2 text-sm font-bold focus:border-orange-500 focus:outline-none" placeholder="Хариулт">
+                            <button onclick="checkTask(15, 2)" class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg text-sm font-bold shadow">Шалгах</button>
+                        </div>
+                        <div id="task15_feedback" class="hidden p-4 rounded-xl text-sm border"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. СОРИЛ -->
+            <div id="quiz" class="hidden space-y-6">
+                <!-- Түвшин заагч товчлуурууд -->
+                <div class="flex justify-center space-x-2 mb-4 bg-slate-50 p-2 rounded-xl border border-slate-200">
+                    <button onclick="filterQuiz('level1')" id="btn-lvl1" class="bg-orange-500 text-white text-xs px-4 py-1.5 rounded-lg font-bold transition-all">I түвшин (Суурь)</button>
+                    <button onclick="filterQuiz('level2')" id="btn-lvl2" class="bg-slate-200 text-slate-700 text-xs px-4 py-1.5 rounded-lg font-bold transition-all">II түвшин (Анализ)</button>
+                    <button onclick="filterQuiz('level3')" id="btn-lvl3" class="bg-slate-200 text-slate-700 text-xs px-4 py-1.5 rounded-lg font-bold transition-all">III түвшин (Бодлого)</button>
+                </div>
+
+                <div id="quiz-container" class="space-y-8"></div>
+                <div class="flex justify-center mt-8" id="quizSubmitContainer">
+                    <button onclick="calculateScore()" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-10 rounded-full shadow-lg transition-transform active:scale-95">Дүнгээ үзэх</button>
+                </div>
+                <div id="quiz-result" class="hidden mt-10 p-10 rounded-3xl text-center shadow-2xl border-4"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showTab(tabId) {
+            const card = document.getElementById('mainContentCard');
+            if (tabId === 'theory' || tabId === 'quiz' || tabId === 'tasks' || tabId === 'concept') {
+                card.className = "bg-white p-6 sm:p-8 rounded-b-lg shadow-xl border-t-4 border-orange-500 min-h-[500px] text-slate-800";
+            } else {
+                card.className = "bg-slate-900 p-6 sm:p-8 rounded-b-lg shadow-xl border-t-4 border-orange-500 min-h-[500px] text-slate-100";
+            }
+            ['theory', 'experiment', 'tasks', 'concept', 'quiz'].forEach(id => document.getElementById(id).classList.add('hidden'));
+            ['btn-theory', 'btn-experiment', 'btn-tasks', 'btn-concept', 'btn-quiz'].forEach(id => document.getElementById(id).classList.replace('tab-active', 'tab-inactive'));
+            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById('btn-' + tabId).classList.replace('tab-inactive', 'tab-active');
+            if (tabId === 'experiment') {
+                setTimeout(initSimulation, 50);
+            } else if (tabId === 'quiz') {
+                filterQuiz('level1');
+            }
+        }
+
+        // --- ИНТЕРАКТИВ СИМУЛЯЦИЙН СИСТЕМ ---
+        let canvas, ctx;
+        let animId = null;
+        let currentMode = 'conduction';
+        let currentMaterial = 'iron';
+        let currentTarget = 'black'; 
+
+        // Дулаан дамжуулалтын коэффициентууд Вт/(м·°C)
+        const thermalK = {
+            diamond: 0.35,
+            iron: 0.08,
+            lead: 0.02
+        };
+
+        // Цацаргалт шингээлтийн коэффициентууд
+        const radiationAbs = {
+            black: 0.05,
+            white: 0.01
+        };
+
+        //  Конвекцын бөөмсийн координат
+        let convectionParticles = [];
+        for (let i = 0; i < 40; i++) {
+            convectionParticles.push({
+                x: 180 + Math.random() * 400,
+                y: 80 + Math.random() * 160,
+                color: '#3b82f6',
+                speedY: 0.5 + Math.random() * 1.5,
+                angle: Math.random() * Math.PI * 2
+            });
+        }
+
+        // Дамжуулалтын молекул торны хувьсагчид
+        let atoms = [];
+        const rows = 5;
+        const cols = 10;
+        const baseSpacing = 45;
+        const gridStartX = 180;
+        const gridStartY = 80;
+
+        let radiationTempBlack = 20;
+        let radiationTempWhite = 20;
+
+        function initSimulation() {
+            canvas = document.getElementById('moleculeCanvas');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+            
+            document.getElementById('tempSlider').addEventListener('input', () => { /* loop updates auto */ });
+            changeMode();
+        }
+
+        function changeMode() {
+            currentMode = document.getElementById('transferMode').value;
+            const sliderLabel = document.getElementById('sliderLabel');
+            const propLabel = document.getElementById('propLabel');
+            const materialSelect = document.getElementById('materialSelect');
+
+            if (currentMode === 'conduction') {
+                sliderLabel.innerText = "Үүсгэгчийн температур (T):";
+                propLabel.innerText = "Савааны материал:";
+                materialSelect.innerHTML = `
+                    <option value="iron">Төмөр (Дундаж хэлбэлзэл)</option>
+                    <option value="lead">Хар тугалга (Зөөлөн, хурдан хэлбэлзэл)</option>
+                    <option value="diamond">Алмаз (Бат бөх, хурдан дамжуулалт)</option>
+                `;
+                materialSelect.value = currentMaterial;
+                createAtoms(); // reset
+            } else if (currentMode === 'convection') {
+                sliderLabel.innerText = "Халаагчийн хүч (Эрчим):";
+                propLabel.innerText = "Шингэний төрөл:";
+                materialSelect.innerHTML = `
+                    <option value="water">Ус (Хурдан эргэлдэнэ)</option>
+                    <option value="oil">Тос (Зунгааралдсан эргэлт)</option>
+                `;
+                materialSelect.value = 'water';
+            } else if (currentMode === 'radiation') {
+                sliderLabel.innerText = "Цацаргагчийн хүч (T):";
+                propLabel.innerText = "Хүлээн авагч гадаргуу:";
+                materialSelect.innerHTML = `
+                    <option value="black">Хар гадаргуу (Шингээлт сайн)</option>
+                    <option value="white">Цагаан гадаргуу (Ойлголт ихтэй)</option>
+                `;
+                materialSelect.value = currentTarget;
+                radiationTempBlack = 20;
+                radiationTempWhite = 20;
+            }
+        }
+
+        function changeMaterial() {
+            const materialSelect = document.getElementById('materialSelect');
+            if (currentMode === 'conduction') {
+                currentMaterial = materialSelect.value;
+                createAtoms();
+            } else if (currentMode === 'radiation') {
+                currentTarget = materialSelect.value;
+            }
+        }
+
+        function createAtoms() {
+            atoms = [];
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    atoms.push({
+                        eqX: gridStartX + c * baseSpacing,
+                        eqY: gridStartY + r * baseSpacing,
+                        x: gridStartX + c * baseSpacing,
+                        y: gridStartY + r * baseSpacing,
+                        phaseX: Math.random() * Math.PI * 2,
+                        phaseY: Math.random() * Math.PI * 2,
+                        temp: 0
+                    });
+                }
+            }
+        }
+
+        // Цацрагийн шулуун дээр сум маш нарийн, зөв чиглэлд зурах ухаалаг функц
+        function drawArrowOnLine(x1, y1, x2, y2, color) {
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            const midX = (x1 + x2) / 2;
+            const midY = (y1 + y2) / 2;
+            
+            ctx.save();
+            ctx.translate(midX, midY);
+            ctx.rotate(angle);
+            ctx.fillStyle = color;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = color;
+            
+            ctx.beginPath();
+            ctx.moveTo(6, 0);
+            ctx.lineTo(-8, -6);
+            ctx.lineTo(-3, 0);
+            ctx.lineTo(-8, 6);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function updateExp() {
+            if (!canvas) return;
+            const w = canvas.width, h = canvas.height;
+            const centerY = h / 2;
+
+            const targetTemp = parseInt(document.getElementById('tempSlider').value);
+            document.getElementById('tempValueDisplay').innerText = targetTemp + (currentMode === 'convection' ? '%' : '°C');
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Арын тор
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+            ctx.lineWidth = 1;
+            for (let i = 20; i < w; i += 20) {
+                ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, h); ctx.stroke();
+            }
+
+            if (currentMode === 'conduction') {
+                // --- ДУЛААН ДАМЖУУЛАЛТ (Молекулын долгион) ---
+                const kVal = thermalK[currentMaterial];
+                const alphaVal = currentMaterial === 'lead' ? 29e-6 : (currentMaterial === 'iron' ? 12e-6 : 1e-6);
+                
+                document.getElementById('cardLabel1').innerText = "Үүсгэгчийн температур";
+                document.getElementById('cardLabel2').innerText = "Биеийн дундаж температур";
+                document.getElementById('cardLabel3').innerText = "Кристалл торын бат бөх";
+                document.getElementById('cardLabel4').innerText = "Макро тэлэлтийн хувь";
+                document.getElementById('metric1').innerText = targetTemp + " °C";
+
+                // Долгион тарах
+                for (let c = cols - 1; c >= 1; c--) {
+                    for (let r = 0; r < rows; r++) {
+                        let idx = r * cols + c;
+                        let prevIdx = r * cols + (c - 1);
+                        let diff = atoms[prevIdx].temp - atoms[idx].temp;
+                        atoms[idx].temp += diff * kVal * 0.15; 
+                    }
+                }
+                for (let r = 0; r < rows; r++) {
+                    let idx = r * cols + 0;
+                    atoms[idx].temp += (targetTemp - atoms[idx].temp) * 0.1;
+                }
+
+                let sumTemp = 0;
+                atoms.forEach(a => sumTemp += a.temp);
+                let avgTemp = sumTemp / atoms.length;
+
+                const expansionPercent = (alphaVal * 3 * avgTemp * 100);
+                const spacingShift = avgTemp * alphaVal * 200; 
+
+                document.getElementById('metric2').innerText = avgTemp.toFixed(1) + " °C";
+                document.getElementById('metric3').innerText = currentMaterial === 'diamond' ? 'Маш өндөр' : (currentMaterial === 'iron' ? 'Дундаж' : 'Сул');
+                document.getElementById('metric4').innerText = expansionPercent.toFixed(3) + " %";
+
+                //  Халаагч
+                const heaterWidth = 20;
+                const hRatio = Math.min(1, targetTemp / 600);
+                const hR = Math.floor(167 + hRatio * (239 - 167));
+                const hG = Math.floor(139 + hRatio * (68 - 139));
+                const hB = Math.floor(250 + hRatio * (68 - 250));
+                ctx.fillStyle = `rgb(${hR}, ${hG}, ${hB})`;
+                ctx.shadowBlur = targetTemp > 0 ? 20 : 0;
+                ctx.shadowColor = ctx.fillStyle;
+                ctx.fillRect(gridStartX - baseSpacing, gridStartY - 20, heaterWidth, (rows - 1) * baseSpacing + 40);
+                ctx.shadowBlur = 0;
+
+                // Атомууд шинэчлэх ба зурах
+                atoms.forEach((atom, idx) => {
+                    const r = Math.floor(idx / cols);
+                    const c = idx % cols;
+
+                    const curEqX = gridStartX + c * (baseSpacing + spacingShift);
+                    const curEqY = gridStartY + r * (baseSpacing + spacingShift);
+
+                    const speedFactor = 0.5 + (atom.temp * 0.04) * kVal * 30;
+                    const ampFactor = 0.5 + (atom.temp * 0.05) * kVal * 4;
+
+                    atom.phaseX += 0.05 * speedFactor;
+                    atom.phaseY += 0.07 * speedFactor;
+
+                    atom.x = curEqX + Math.sin(atom.phaseX) * ampFactor;
+                    atom.y = curEqY + Math.cos(atom.phaseY) * ampFactor;
+                });
+
+                ctx.lineWidth = 1.5;
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        const idx = r * cols + c;
+                        const ratio = Math.min(1, atoms[idx].temp / 600);
+                        const lR = Math.floor(148 + ratio * (244 - 148));
+                        const lG = Math.floor(163 - ratio * 100);
+                        const lB = Math.floor(184 - ratio * 90);
+                        ctx.strokeStyle = `rgba(${lR}, ${lG}, ${lB}, 0.6)`;
+                        
+                        if (c < cols - 1) {
+                            const rightIdx = idx + 1;
+                            ctx.beginPath(); ctx.moveTo(atoms[idx].x, atoms[idx].y); ctx.lineTo(atoms[rightIdx].x, atoms[rightIdx].y); ctx.stroke();
+                        }
+                        if (r < rows - 1) {
+                            const downIdx = idx + cols;
+                            ctx.beginPath(); ctx.moveTo(atoms[idx].x, atoms[idx].y); ctx.lineTo(atoms[downIdx].x, atoms[downIdx].y); ctx.stroke();
+                        }
+                    }
+                }
+
+                atoms.forEach((atom) => {
+                    const ratio = Math.min(1, atom.temp / 600);
+                    const red = Math.floor(167 + ratio * (239 - 167));
+                    const green = Math.floor(139 + ratio * (68 - 139));
+                    const blue = Math.floor(250 + ratio * (68 - 250));
+
+                    const ampFactor = 0.5 + (atom.temp * 0.05) * kVal * 4;
+
+                    ctx.save();
+                    if (atom.temp > 10) {
+                        ctx.shadowBlur = ampFactor * 2 + 5;
+                        ctx.shadowColor = `rgb(${red}, ${green}, ${blue})`;
+                    }
+                    ctx.fillStyle = `rgb(${red}, ${green}, ${blue})`;
+                    ctx.beginPath(); ctx.arc(atom.x, atom.y, 8 + (atom.temp * 0.005), 0, Math.PI * 2); ctx.fill();
+                    ctx.restore();
+                });
+
+                let statusText = "Атомууд тэнцвэрт байрлалдаа маш бага далайцтай хэлбэлзэж байна.";
+                if (targetTemp === 0 && avgTemp < 1) {
+                    statusText = "Абсолют тэг температур (T = 0 K) рүү дөхөхөд молекулын дулааны хөдөлгөөн зогсоно.";
+                } else if (targetTemp > 0) {
+                    statusText = "Эхний хэсэг халж УЛААНААР тодорч, хүчтэй чичирхийлж эхлэх бөгөөд энэхүү чичирхийллээр дулаан ДАМЖИЖ байна.";
+                }
+                document.getElementById('experimentStatus').innerText = statusText;
+
+            } 
+            else if (currentMode === 'convection') {
+                // --- КОНВЕКЦ (Шингэн/Хий) ---
+                document.getElementById('cardLabel1').innerText = "Халаагчийн хүч";
+                document.getElementById('cardLabel2').innerText = "Орчны төлөв";
+                document.getElementById('cardLabel3').innerText = "Дээшлэх хурд";
+                document.getElementById('cardLabel4').innerText = "Дундаж температур";
+
+                const isWater = document.getElementById('materialSelect').value === 'water';
+                const flowSpeed = targetTemp * (isWater ? 0.03 : 0.01);
+
+                document.getElementById('metric1').innerText = targetTemp + " %";
+                document.getElementById('metric2').innerText = isWater ? "Ус (Зуурамтгай бага)" : "Тос (Зуурамтгай их)";
+                document.getElementById('metric3').innerText = (flowSpeed * 10).toFixed(1) + " см/с";
+                document.getElementById('metric4').innerText = (20 + targetTemp * 0.15).toFixed(1) + " °C";
+
+                const beakerX = 230, beakerY = 60, beakerW = 300, beakerH = 220;
+                ctx.save();
+                ctx.fillStyle = 'rgba(14, 165, 233, 0.2)'; 
+                ctx.fillRect(beakerX + 5, beakerY + 5, beakerW - 10, beakerH - 10);
+                ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 4;
+                ctx.beginPath(); ctx.moveTo(beakerX, beakerY); ctx.lineTo(beakerX, beakerY + beakerH); ctx.lineTo(beakerX + beakerW, beakerY + beakerH); ctx.lineTo(beakerX + beakerW, beakerY); ctx.stroke();
+                ctx.restore();
+
+                ctx.fillStyle = targetTemp > 50 ? '#ef4444' : '#475569';
+                ctx.fillRect(beakerX + 20, beakerY + beakerH + 5, beakerW - 40, 10);
+
+                convectionParticles.forEach(p => {
+                    const middleX = beakerX + beakerW / 2;
+                    if (p.x > middleX - 60 && p.x < middleX + 60) {
+                        p.y -= p.speedY * flowSpeed;
+                        p.color = `rgb(${Math.min(255, 150 + targetTemp)}, 50, ${Math.max(50, 255 - targetTemp * 2)})`;
+                    } else {
+                        p.y += p.speedY * flowSpeed * 0.8; 
+                        p.color = '#3b82f6';
+                    }
+
+                    if (p.y < beakerY + 20) { p.x += Math.random() > 0.5 ? 20 : -20; p.y = beakerY + 21; }
+                    if (p.y > beakerY + beakerH - 20) { p.x = beakerX + 40 + Math.random() * (beakerW - 80); p.y = beakerY + beakerH - 21; }
+                    if (p.x < beakerX + 15) p.x = beakerX + 15;
+                    if (p.x > beakerX + beakerW - 15) p.x = beakerX + beakerW - 15;
+
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, Math.PI * 2); ctx.fill();
+                });
+
+                ctx.strokeStyle = 'rgba(239, 68, 68, 0.6)'; ctx.lineWidth = 2.5;
+                ctx.beginPath(); ctx.arc(beakerX + beakerW/2 - 40, beakerY + beakerH/2, 40, Math.PI * 0.5, Math.PI * 1.5); ctx.stroke();
+                ctx.beginPath(); ctx.arc(beakerX + beakerW/2 + 40, beakerY + beakerH/2, 40, Math.PI * 1.5, Math.PI * 0.5); ctx.stroke();
+
+                document.getElementById('experimentStatus').innerText = "Дулаан шингэн тэлж нягт нь багассанаар дээш хөөрч, хүйтэн хэсэг нь доош унан КОНВЕКЦ-ийн урсгал үүсгэж байна.";
+
+            } 
+            else if (currentMode === 'radiation') {
+                // --- ЦАЦАРГАЛТ (Долгион) ---
+                document.getElementById('cardLabel1').innerText = "Цацаргагчийн хүч";
+                document.getElementById('cardLabel2').innerText = "Сонгосон гадаргуу";
+                document.getElementById('cardLabel3').innerText = "Хар кубын температур";
+                document.getElementById('cardLabel4').innerText = "Цагаан кубын температур";
+
+                document.getElementById('metric1').innerText = targetTemp + " Вт";
+                document.getElementById('metric2').innerText = currentTarget === 'black' ? "Хар (Шингээгч)" : "Цагаан (Ойлгогч)";
+
+                const factorBlack = radiationAbs.black * (targetTemp / 100);
+                const factorWhite = radiationAbs.white * (targetTemp / 100);
+                radiationTempBlack += factorBlack;
+                radiationTempWhite += factorWhite;
+
+                document.getElementById('metric3').innerText = radiationTempBlack.toFixed(1) + " °C";
+                document.getElementById('metric4').innerText = radiationTempWhite.toFixed(1) + " °C";
+
+                const lampX = 150, lampY = centerY;
+                ctx.save();
+                ctx.fillStyle = '#f59e0b';
+                ctx.shadowBlur = targetTemp * 0.1;
+                ctx.shadowColor = '#f59e0b';
+                ctx.beginPath(); ctx.arc(lampX, lampY, 35, 0, Math.PI*2); ctx.fill();
+                ctx.restore();
+
+                ctx.strokeStyle = '#f97316'; ctx.lineWidth = 1.5;
+                const waveCount = 5;
+                for (let j = 0; j < waveCount; j++) {
+                    const startY = lampY - 60 + j * 30;
+                    ctx.beginPath();
+                    for (let x = lampX + 40; x < 500; x += 10) {
+                        const waveY = startY + Math.sin(x * 0.1 + Date.now() * 0.02) * 5;
+                        if (x === lampX + 40) ctx.moveTo(x, waveY); else ctx.lineTo(x, waveY);
+                    }
+                    ctx.stroke();
+                }
+
+                const cubeSize = 50;
+                const cubeX = 500;
+                
+                ctx.fillStyle = '#1e293b'; ctx.fillRect(cubeX, centerY - 65, cubeSize, cubeSize);
+                ctx.strokeStyle = '#ffffff'; ctx.strokeRect(cubeX, centerY - 65, cubeSize, cubeSize);
+                ctx.fillStyle = '#ffffff'; ctx.font = '10px sans-serif';
+                ctx.fillText(`Хар: ${radiationTempBlack.toFixed(0)}°C`, cubeX - 10, centerY - 75);
+
+                ctx.fillStyle = '#f8fafc'; ctx.fillRect(cubeX, centerY + 15, cubeSize, cubeSize);
+                ctx.strokeStyle = '#94a3b8'; ctx.strokeRect(cubeX, centerY + 15, cubeSize, cubeSize);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(`Цагаан: ${radiationTempWhite.toFixed(0)}°C`, cubeX - 10, centerY + 5);
+
+                document.getElementById('experimentStatus').innerText = "Хар бараан өнгөтэй гадаргуу нь дулааны ЦАЦАРГАЛТЫГ маш сайн шингээдэг бол цагаан цайвар өнгөтэй гадаргуу нь дулааныг ОЙЛГОДОГ байна.";
+            }
+        }
+
+        // --- ИНТЕРАКТИВ ТҮВШИНЧИЛСЭН ДААЛГАВАР ШАЛГАХ ЛОГИК ---
+        const taskExpls = {
+            1: "<b>Бодолт:</b><br>Дулаан зөөлтийн үндсэн хуулиар дулааны урсгал нь өндөр температуртай биеэс бага температуртай бие рүү чиглэж шилжинэ. Цай нь 80°C (халуун), халбага нь 20°C (хүйтэн) тул дулаан <b>Цайнаас халбага руу (2)</b> шилждэг.",
+            2: "<b>Бодолт:</b><br>Температурын өөрчлөлт: <span class='font-bold text-orange-600'>ΔT = T_дотор - T_гадна</span><br>ΔT = 20°C - (-15°C) = 20 + 15 = <b>35°C</b> байна.",
+            3: "<b>Бодолт:</b><br>Бодис халахад түүний эзэлхүүн тэлж, нягт нь багасдаг. Шингэний халуун хэсэг хөнгөн болж дээшлэх тул <b>Нягт нь багасаж, дээш хөөрнө (2)</b>.",
+            4: "<b>Бодолт:</b><br>Дулаан дамжуулалт болон конвекц нь заавал бодисын жижиг хэсгүүдээр дамжиж явагддаг бол <b>Дулааны цацаргалт (3)</b> нь вакуум орчинд ямар ч саадгүй тархаж чадна.",
+            5: "<b>Бодолт:</b><br>Металлууд нь маш сайн дулаан дамжуулагч бөгөөд зэсийн дулаан дамжуулах коэффициент (k ≈ 401) нь төмөр (k ≈ 80) болон шил (k ≈ 0.8)-ээс хамаагүй их тул <b>ЗЭС</b> нь хамгийн сайн дамжуулагч юм.",
+            6: "<b>Бодолт:</b><br>Хольсон массын хэмжээ адилхан (m₁ = m₂) тул дулааны балансын тэгшитгэлээр:<br>m · C · (T_эцсийн - 20) = m · C · (80 - T_эцсийн)<br>T_эцсийн - 20 = 80 - T_эцсийн => 2 · T_эцсийн = 100 => T_эцсийн = <b>50°C</b> болно.",
+            7: "<b>Бодолт:</b><br>Дулааны тэлэлтийн коэффициент өөр хоёр металлыг холбосон ялтсыг <b>Биметалл ялтас (2)</b> гэх бөгөөд халахад муруйж хэлхээг салгадаг.",
+            8: "<b>Бодолт:</b><br>Сансрын вакуум орон зайд бодисын молекулууд байхгүй тул дулаан зөвхөн <b>Цацаргалт (3)</b>-аар дамжиж ирдэг.",
+            9: "<b>Бодолт:</b><br>Вакуум орчинд бодис байхгүй тул бодисын молекулуудын тусламжтай явагддаг <b>Дамжуулалт болон конвекцыг (2)</b> бүрэн зогсоож дулаанаа алдахгүй барьдаг.",
+            10: "<b>Бодолт:</b><br>Дулаан агаар дээшээ өгсөж, хүйтэн агаар доошоо унах үзэгдлийг <b>КОНВЕКЦ</b> гэнэ. Ийм учраас халаагуурыг шалан дээр, хөргүүрийг таазанд ойр байрлуулдаг.",
+            11: "<b>Бодолт:</b><br>Фуртьегийн хуулийн томьёо: <span class='font-bold text-orange-600'>Q = (k · S · ΔT · t) / d</span><br>ΔT = 10°C, t = 5 с, d = 0.01 м, k = 80, S = 2 м².<br>Q = (80 · 2 · 10 · 5) / 0.01 = 8000 / 0.01 = <b>80,000 Ж</b> (буюу 80 кЖ) байна.",
+            12: "<b>Бодолт:</b><br>Дулааны балансын тэгшитгэлээр: Q_авсан = Q_өгсөн<br>m_төмөр · C_төмөр · (T_эцсийн - 20) = m_ус · C_ус · (80 - T_эцсийн)<br>1 · 460 · (T - 20) = 2 · 4200 · (80 - T)<br>460 · T - 9200 = 672000 - 8400 · T<br>8860 · T = 681200 => T ≈ <b>77°C</b> болно.",
+            13: "<b>Бодолт:</b><br>Стефан-Больцманы хуулиар цацаргалтын эрчим нь температурын 4 зэрэгтэй пропорциональ байна: <span class='font-bold text-orange-600'>P ∝ T⁴</span><br>Температураа 2 дахин ихэсгэвэл эрчим нь: 2⁴ = <b>16 дахин</b> ихэснэ.",
+            14: "<b>Бодолт:</b><br>Агаар нь дулааныг маш муу дамжуулдаг угаасаа сайн тусгаарлагч юм. Хоёр шилний хоорондох агаар нь <b>дулаан тусгаарлагч (2)</b> болж өрөөний дулааныг гадагш алдахаас сэргийлдэг.",
+            15: "<b>Бодолт:</b><br>Дулаан дамжуулалтын хэмжээ нь зузаан d-ээс урвуу хамааралтай. Зузааныг 2 дахин ихэсгэхэд дулааны алдагдал <b>2 дахин багасна (2)</b>."
+        };
+
+        function checkTask(taskNum, correctAns) {
+            const inputVal = parseFloat(document.getElementById(`task${taskNum}_input`).value);
+            const feedbackDiv = document.getElementById(`task${taskNum}_feedback`);
+            feedbackDiv.classList.remove('hidden');
+
+            if (isNaN(inputVal)) {
+                feedbackDiv.className = "p-4 rounded-xl text-sm border bg-amber-50 border-amber-300 text-amber-800";
+                feedbackDiv.innerHTML = "Хариултын нүдэнд тоон утга оруулна уу.";
+                return;
+            }
+
+            if (Math.abs(inputVal - correctAns) < 0.01) {
+                feedbackDiv.className = "p-4 rounded-xl text-sm border bg-emerald-50 border-emerald-300 text-emerald-800 space-y-2";
+                feedbackDiv.innerHTML = `<div><b>✓ Зөв хариуллаа! Гайхалтай.</b></div><div>${taskExpls[taskNum]}</div>`;
+            } else {
+                feedbackDiv.className = "p-4 rounded-xl text-sm border bg-rose-50 border-rose-300 text-rose-800 space-y-2";
+                feedbackDiv.innerHTML = `<div><b>✗ Буруу хариулт байна. Дахин оролдоод үзээрэй.</b></div><div>Хариулт авахыг хүсвэл бодолтыг уншина уу.</div><div class="text-xs text-slate-500 pt-1">${taskExpls[taskNum]}</div>`;
+            }
+        }
+
+        function checkTextTask(taskNum, correctStr) {
+            const inputVal = document.getElementById(`task${taskNum}_input`).value.trim().toLowerCase();
+            const feedbackDiv = document.getElementById(`task${taskNum}_feedback`);
+            feedbackDiv.classList.remove('hidden');
+
+            if (inputVal === "") {
+                feedbackDiv.className = "p-4 rounded-xl text-sm border bg-amber-50 border-amber-300 text-amber-800";
+                feedbackDiv.innerHTML = "Хариултын нүдэнд бичвэр оруулна уу.";
+                return;
+            }
+
+            if (inputVal === correctStr) {
+                feedbackDiv.className = "p-4 rounded-xl text-sm border bg-emerald-50 border-emerald-300 text-emerald-800 space-y-2";
+                feedbackDiv.innerHTML = `<div><b>✓ Зөв хариуллаа! Гайхалтай.</b></div><div>${taskExpls[taskNum]}</div>`;
+            } else {
+                feedbackDiv.className = "p-4 rounded-xl text-sm border bg-rose-50 border-rose-300 text-rose-800 space-y-2";
+                feedbackDiv.innerHTML = `<div><b>✗ Буруу хариулт байна. Зөв бичсэн эсэхээ хянаарай.</b></div><div>Хариулт авахыг хүсвэл бодолтыг уншина уу.</div><div class="text-xs text-slate-500 pt-1">${taskExpls[taskNum]}</div>`;
+            }
+        }
+
+        function toggleConcept(id) {
+            const feedback = document.getElementById(`concept_feedback_${id}`);
+            if (feedback.classList.contains('hidden')) {
+                feedback.classList.remove('hidden');
+            } else {
+                feedback.classList.add('hidden');
+            }
+        }
+
+        // --- СОРИЛЫН АЖИЛЛАГАА ---
+        const quizQuestions = [
+            // --- I ТҮВШИН (СУУРЬ МЭДЛЭГ) ---
+            { 
+                level: "level1",
+                q: "1. Дулаан зөөлтийн ямар хэлбэр нь зөвхөн хатуу биетэд, молекулуудын шууд мөргөлдөх хөдөлгөөнөөр явагддаг вэ?", 
+                options: ["Дулаан дамжуулалт", "Конвекц", "Дулааны цацаргалт", "Абсолют агшилт"], 
+                correct: 0 
+            },
+            { 
+                level: "level1",
+                q: "2. Шингэн болон хийн урсгалаар бодис зөөгдөх замаар дулаан дамжих үзэгдлийг юу гэх вэ?", 
+                options: ["Дулаан дамжуулалт", "Конвекц", "Дулааны цацаргалт", "Эзэлхүүн агшилт"], 
+                correct: 1 
+            },
+            { 
+                level: "level1",
+                q: "3. Дулааны цацаргалтын үзэгдлийн гол онцлог юу вэ?", 
+                options: ["Заагч бодис эсвэл дулаан дамжуулагч заавал шаардана", "Дулаан зөвхөн дээшээ чиглэлд тарна", "Ямар ч бодисгүй вакуум орчинд ч дулаан соронзон долгионоор тарах боломжтой", "Зөвхөн металл биетүүдэд явагдана"], 
+                correct: 2 
+            },
+            { 
+                level: "level1",
+                q: "4. Хамгийн муу дулаан дамжуулдаг, дулаан тусгаарлагч бодисыг сонгоно уу.", 
+                options: ["Зэс", "Төмөр", "Мөнгө", "Агаар"], 
+                correct: 3 
+            },
+            { 
+                level: "level1",
+                q: "5. Дулаан дамжуулалтын коэффициентын (k) physical нэгж юу вэ?", 
+                options: ["Вт/(м·°C)", "Ж/кг", "м/°C", "Вт·м"], 
+                correct: 0 
+            },
+
+            // --- II ТҮВШИН (АНАЛИЗ БА ХЭРЭГЛЭЭ) ---
+            { 
+                level: "level2",
+                q: "6. Халуун өдөр замын гадаргуу дээр ус байгаа мэт харагддаг зэрэглээ (Mirage) үүсэх нь ямар үзэгдэлтэй холбоотой вэ?", 
+                options: ["Гэрэл агаарын халуун давхаргуудад дотоод бүрэн ойлт хийх үзэгдэл", "Агаар дахь тоосны сарнисан ойлт", "Замын төмөр тэлэлтийн тусгал", "Дулаан дамжуулалтын шууд ойлт"], 
+                correct: 0 
+            },
+            { 
+                level: "level2",
+                q: "7. Хоёр давхар шиллэсэн цонхны шил хоорондын агаарын орон зай ямар үүрэгтэй вэ?", 
+                options: ["Агаар нь дулааныг маш сайн дамжуулагч тул гэрийг хурдан халаана", "Агаар нь дулаан дамжуулалт маш муутай тул дулаан тусгаарлагч болж дулаан алдагдлыг багасгана", "Гэрлийн туяаг бүрэн ойлгож өрөөг харанхуй болгоно", "Цонхны шилийг бэхжүүлж зузаан болгоно"], 
+                correct: 1 
+            },
+            { 
+                level: "level2",
+                q: "8. Шилэн халуун савны (термос) доторх ханануудын дундах агаарыг сорж вакуум болгодог нь дулаан алдагдлын ямар хэлбэрүүдийг зогсоох вэ?", 
+                options: ["Зөвхөн цацаргалтыг", "Дамжуулалт болон конвекцыг", "Зөвхөн конвекцыг", "Дамжуулалт болон цацаргалтыг"], 
+                correct: 1 
+            },
+            { 
+                level: "level2",
+                q: "9. Тэлэлтийн коэффициент нь өөр хоёр металлыг нааж холбосон ялтсыг халаахад яагаад муруйдаг вэ?", 
+                options: ["Нэг металл нь цахилгаан дамжуулдаггүй тул", "Илүү их тэлэх коэффициенттэй металл нь илүү уртсаж нөгөө рүүгээ шахаж муруйдаг учраас", "Бага тэлэх коэффициенттэй металл нь маш хурдан агшдаг учраас", "Хоёр металл соронзлогдож эхэлдэг тул"], 
+                correct: 1 
+            },
+            { 
+                level: "level2",
+                q: "10. Наранд зогсож буй хар болон цагаан машиных халалт яагаад өөр өөр байдаг вэ?", 
+                options: ["Цагаан өнгө гэрлийг маш сайн шингээдэг тул илүү хална", "Хар өнгө нь дулааны цацаргалтыг маш сайн шингээдэг тул цагаанаас илүү хална", "Хоёулаа яг адилхан халах ёстой", "Хар өнгө гэрлийг бүхэлд нь ойлгодог тул"], 
+                correct: 1 
+            },
+
+            // --- III ТҮВШИН (БОДЛОГО, ГҮНЗГИЙРҮҮЛСЭН) ---
+            { 
+                level: "level3",
+                q: "11. 1 м² талбайтай, 0.02 м зузаантай тоосгон хананы хоёр талын температурын зөрүү 20°C байв. Энэ ханаар 10 секундэд дамжих дулааны хэмжээг олно уу. (Тоосгоны k = 0.8 Вт/(м·°C))", 
+                options: ["800 Ж", "400 Ж", "8000 Ж", "4000 Ж"], 
+                correct: 2
+            },
+            { 
+                level: "level3",
+                q: "12. 60°C температуртай 2 кг усан дотор 10°C температуртай 1 кг усыг хийж холив. Дулааны алдагдлыг тооцохгүй бол системийн эцсийн температур хэд болох вэ?", 
+                options: ["35°C", "43.3°C", "25°C", "40°C"], 
+                correct: 1
+            },
+            { 
+                level: "level3",
+                q: "13.  Биеийн абсолют температурыг 200 К-ээс 400 К болгон 2 дахин ихэсгэв. Тэгвэл түүний цацаргах дулааны эрчим хэд дахин ихсэх вэ?", 
+                options: ["2 дахин", "4 дахин", "8 дахин", "16 дахин"], 
+                correct: 3
+            },
+            { 
+                level: "level3",
+                q: "14. Фуртьегийн дулаан дамжуулалтын хуулиар дамжих дулааны урсгалын хэмжээ нь хананы зузаанаас ямар хамааралтай вэ?", 
+                options: ["Шууд хамааралтай (Зузаарах тусам их дамжина)", "Урвуу хамааралтай (Зузаарах тусам бага дамжина)", "Хананы зузаанаас хамаарахгүй", "Температурын зөрүү их бол шууд хамааралтай болно"], 
+                correct: 1 
+            },
+            { 
+                level: "level3",
+                q: "15. Металл бөмбөрцгийг халаахад түүний эзэлхүүн 0.12%-иар нэмэгджээ. Тэгвэл уг металлын радиус ойролцоогоор хэдэн хувиар нэмэгдсэн бэ?", 
+                options: ["0.12%", "0.04%", "0.36%", "0.08%"], 
+                correct: 1 
+            }
+        ];
+
+        let userAnswers = new Array(quizQuestions.length).fill(null);
+        let hasSubmittedQuiz = false; 
+
+        let activeLevel = "level1";
+
+        function filterQuiz(levelId) {
+            activeLevel = levelId;
+            
+            ['lvl1', 'lvl2', 'lvl3'].forEach(id => {
+                document.getElementById('btn-' + id).className = "bg-slate-200 text-slate-700 text-xs px-4 py-1.5 rounded-lg font-bold transition-all";
+            });
+            const activeBtnId = levelId === 'level1' ? 'lvl1' : (levelId === 'level2' ? 'lvl2' : 'lvl3');
+            document.getElementById('btn-' + activeBtnId).className = "bg-orange-500 text-white text-xs px-4 py-1.5 rounded-lg font-bold transition-all";
+
+            renderQuiz();
+        }
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+
+            quizQuestions.forEach((q, idx) => {
+                if (q.level !== activeLevel) return;
+
+                const div = document.createElement('div');
+                div.className = "p-6 bg-slate-800/40 rounded-2xl border border-slate-800 shadow-sm";
+                
+                let optionsHtml = q.options.map((opt, i) => {
+                    let btnClass = "text-left px-5 py-3 bg-slate-800 border-2 border-slate-700 rounded-xl hover:border-red-500 transition-all font-medium text-slate-300 w-full flex items-center";
+                    
+                    if (userAnswers[idx] === i) {
+                        btnClass = "text-left px-5 py-3 bg-red-600 border-2 border-red-600 rounded-xl text-white transition-all font-medium flex items-center w-full";
+                    }
+
+                    if (hasSubmittedQuiz) {
+                        if (i === q.correct) {
+                            btnClass = "text-left px-5 py-3 bg-emerald-900/60 border-2 border-emerald-500 rounded-xl text-emerald-400 transition-all font-medium flex items-center w-full";
+                        } else if (userAnswers[idx] === i) {
+                            btnClass = "text-left px-5 py-3 bg-red-900/60 border-2 border-red-500 rounded-xl text-red-400 transition-all font-medium flex items-center w-full";
+                        } else {
+                            btnClass = "text-left px-5 py-3 bg-slate-800 border-2 border-slate-800 rounded-xl text-slate-500 transition-all font-medium flex items-center opacity-60 w-full";
+                        }
+                    }
+
+                    let badgeHtml = `<span class="inline-block w-8 h-8 rounded-full bg-slate-900 text-center leading-8 mr-3 text-sm font-bold text-slate-400">${String.fromCharCode(65+i)}</span>`;
+                    if (hasSubmittedQuiz && i === q.correct) {
+                        badgeHtml = `<span class="inline-block w-8 h-8 rounded-full bg-emerald-500 text-center leading-8 mr-3 text-sm font-bold text-white">&#10004;</span>`;
+                    } else if (hasSubmittedQuiz && userAnswers[idx] === i) {
+                        badgeHtml = `<span class="inline-block w-8 h-8 rounded-full bg-red-500 text-center leading-8 mr-3 text-sm font-bold text-white">&#10008;</span>`;
+                    }
+
+                    return `
+                        <button onclick="checkAns(${idx}, ${i}, this)" class="${btnClass}">
+                            ${badgeHtml}
+                            <span class="flex-grow">${opt}</span>
+                        </button>
+                    `;
+                }).join('');
+
+                div.innerHTML = `
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="flex-grow w-full">
+                            <h3 class="text-lg font-bold mb-4 text-slate-100">${q.q}</h3>
+                            <div class="grid grid-cols-1 gap-3 w-full" id="q-opts-${idx}">
+                                ${optionsHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function calculateScore() {
+            hasSubmittedQuiz = true; 
+            let score = 0;
+            
+            document.getElementById('quizSubmitContainer').classList.add('hidden');
+
+            quizQuestions.forEach((q, qIdx) => {
+                if (userAnswers[qIdx] === q.correct) {
+                    score++;
+                }
+            });
+
+            renderQuiz();
+
+            const resultDiv = document.getElementById('quiz-result');
+            resultDiv.classList.remove('hidden');
+            let gradeColor = score >= 12 ? 'bg-emerald-950/40 border-emerald-500/30' : (score >= 8 ? 'bg-yellow-950/40 border-yellow-500/30' : 'bg-red-950/40 border-red-500/30');
+            let textColor = score >= 12 ? 'text-emerald-400' : (score >= 8 ? 'text-yellow-400' : 'text-red-400');
+            resultDiv.className = `mt-10 p-10 rounded-3xl text-center shadow-2xl border-4 ${gradeColor}`;
+            resultDiv.innerHTML = `
+                <h2 class="text-3xl font-extrabold ${textColor} mb-4">Таны оноо: ${score} / ${quizQuestions.length}</h2>
+                <p class="text-xl text-slate-300 mb-6">${score === 15 ? "Гайхалтай! Та сэдвээ бүрэн эзэмшжээ." : (score >= 8 ? "Сайн байна, дутуугаа онолын хэсгээс дахин бататгаарай!" : "Онолоо дахин уншиж, туршилтыг идэвхтэй ажиллуулаарай.")}</p>
+                <button onclick="location.reload()" class="bg-gray-800 hover:bg-gray-700 text-white px-8 py-3 rounded-full font-bold transition-colors">Дахин эхлэх</button>
+            `;
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function checkAns(qIdx, optIdx, btn) {
+            if (hasSubmittedQuiz) return; 
+            userAnswers[qIdx] = optIdx;
+            
+            const parent = document.getElementById(`q-opts-${qIdx}`);
+            Array.from(parent.children).forEach(child => {
+                child.classList.remove('bg-red-600', 'text-white', 'border-red-600');
+                child.classList.add('bg-slate-800', 'text-slate-300');
+            });
+            btn.classList.remove('bg-slate-800', 'text-slate-300');
+            btn.classList.add('bg-red-600', 'text-white', 'border-red-600');
+        }
+
+        // Бодит хугацааны хөдөлгөөнт ажиллагаа
+        function renderLoop(timestamp) {
+            if (document.getElementById('experiment').classList.contains('hidden') === false) {
+                updateExp();
+            }
+            requestAnimationFrame(renderLoop);
+        }
+
+        window.onload = () => {
+            initSimulation();
+            filterQuiz('level1');
+            requestAnimationFrame(renderLoop);
+        };
+    </script>
+</body>
+</html>
