@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Физик XI - Изопроцесс ба Цикл Процесс Сорил</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- KaTeX for Physics Equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+    <!-- SheetJS (Excel .xlsx экспорт хийх номын сан) -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #020617; color: #f8fafc; }
+        .tab-active { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; border-color: #a78bfa; }
+    </style>
+</head>
+<body class="p-3 md:p-6 min-h-screen bg-slate-950">
+    <div class="max-w-5xl mx-auto bg-slate-900 rounded-3xl shadow-2xl border border-slate-800 overflow-hidden">
+        
+        <!-- HEADER -->
+        <div class="bg-gradient-to-r from-amber-950 via-slate-900 to-indigo-950 p-6 md:p-8 text-white relative border-b border-slate-800">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+                <div class="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
+                    <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center shrink-0 shadow-lg backdrop-blur-md">
+                        <i data-lucide="award" class="w-9 h-9 text-amber-400"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-black text-amber-300 tracking-tight">Изопроцесс ба Цикл Процесс</h1>
+                        <p class="text-indigo-200 text-xs md:text-sm font-medium mt-1">Физик XI | 10 Сонгомол Даалгавар & AI Дасгалжуулагч</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3 bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800 backdrop-blur-md shrink-0">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-400/40 flex items-center justify-center">
+                        <i data-lucide="cloud-check" class="w-5 h-5 text-emerald-400"></i>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-[10px] text-slate-400 uppercase font-extrabold tracking-wider">Клоуд сан</p>
+                        <p class="text-xs font-black text-emerald-300">Google Sheet холбогдсон</p>
+                        <p class="text-[11px] text-amber-400 font-semibold">10 Даалгавар (15 оноо)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB SWITCHER -->
+            <div class="flex flex-wrap items-center gap-2 mt-6 pt-4 border-t border-slate-800/80">
+                <button id="tabBtnQuiz" onclick="switchTab('quiz')" class="tab-active px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all flex items-center gap-2 border border-indigo-400/30">
+                    <i data-lucide="check-square" class="w-4 h-4"></i>
+                    Сурагчийн Сорил
+                </button>
+                <button id="tabBtnAI" onclick="switchTab('ai')" class="bg-slate-950/80 text-slate-400 hover:text-slate-200 px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all flex items-center gap-2 border border-slate-800 hover:border-slate-700">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
+                    AI Дасгал Үүсгэгч
+                </button>
+                <button id="tabBtnTeacher" onclick="switchTab('teacher')" class="bg-slate-950/80 text-amber-400 hover:text-amber-300 px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all flex items-center gap-2 border border-amber-500/30 hover:border-amber-400/60 ml-auto">
+                    <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                    Багшийн Хяналт & Excel
+                </button>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT AREA -->
+        <div class="p-4 md:p-8 space-y-6">
+            
+            <!-- ========================================== -->
+            <!-- TAB 1: СУРАГЧИЙН 10 ДААЛГАВАРТАЙ СОРИЛ -->
+            <!-- ========================================== -->
+            <div id="section-quiz" class="space-y-6">
+                <!-- Сурагчийн бүртгэл -->
+                <div class="p-5 bg-slate-950 rounded-2xl border-2 border-indigo-500/40 shadow-xl space-y-3">
+                    <div class="flex items-center gap-2 text-indigo-400 font-extrabold text-sm">
+                        <i data-lucide="user-check" class="w-4 h-4"></i>
+                        <span>Сурагчийн мэдээлэл</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-slate-300 text-xs font-bold mb-1">Овог нэр:</label>
+                            <input type="text" id="studentName" placeholder="Жишээ: Д. Бат-Эрдэнэ" class="w-full bg-slate-900 border border-slate-700 text-slate-100 font-semibold px-4 py-2.5 rounded-xl focus:outline-none focus:border-amber-400 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 text-xs font-bold mb-1">Анги бүлэг:</label>
+                            <input type="text" id="studentClass" placeholder="Жишээ: 11Б" class="w-full bg-slate-900 border border-slate-700 text-slate-100 font-semibold px-4 py-2.5 rounded-xl focus:outline-none focus:border-amber-400 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-indigo-950/30 border border-indigo-800/40 rounded-2xl text-xs text-indigo-200 flex items-center gap-3">
+                    <i data-lucide="help-circle" class="w-5 h-5 text-indigo-400 shrink-0"></i>
+                    <span>$P-V$, $V-T$ диаграммууд, циклийн процессууд, төлөвийн параметрүүдийн даалгавруудыг гүйцэтгээд <b>"Сорилыг багшид илгээх"</b> товчийг дарна уу. Дүн багшийн нэгдсэн Google Sheet рүү шууд илгээгдэнэ.</span>
+                </div>
+
+                <div id="quiz-container" class="space-y-6"></div>
+
+                <div class="flex flex-col items-center justify-center mt-8 gap-3">
+                    <button id="submitQuizBtn" onclick="submitStudentQuiz()" class="w-full md:w-auto bg-gradient-to-r from-emerald-500 via-indigo-600 to-purple-600 hover:from-emerald-600 hover:to-purple-700 text-white font-black py-4 px-14 rounded-2xl shadow-xl transition-all transform active:scale-95 text-base flex items-center justify-center gap-2">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                        Сорилыг багшид илгээх
+                    </button>
+                    <div id="sendProgress" class="text-xs text-amber-300 font-bold hidden flex items-center gap-2">
+                        <i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Багшийн Google Sheet рүү дүнг илгээж байна...
+                    </div>
+                </div>
+                
+                <div id="quiz-warning" class="text-amber-400 font-bold text-sm text-center hidden"></div>
+                <div id="quiz-result" class="hidden mt-8 p-8 rounded-3xl text-center shadow-2xl border-2 transition-all"></div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 2: AI ДАСГАЛ ҮҮСГЭГЧ (P-V, P-T, V-T) -->
+            <!-- ========================================== -->
+            <div id="section-ai" class="hidden space-y-6">
+                <div class="p-6 bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 rounded-2xl border-2 border-purple-500/40 shadow-xl space-y-6">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center">
+                                <i data-lucide="cpu" class="w-6 h-6 text-purple-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-black text-purple-300">AI Цикл & Изопроцесс Генератор</h3>
+                                <p class="text-xs text-slate-400">P-V, P-T, V-T диаграммууд дээр санамсаргүй параметр бүхий бодлогуудыг үүсгэнэ</p>
+                            </div>
+                        </div>
+
+                        <!-- Бодлогын төрөл сонгох (Цэвэр Юникод текст) -->
+                        <div class="flex flex-wrap items-center gap-2">
+                            <select id="aiProblemType" class="bg-slate-900 border border-purple-500/40 text-purple-200 text-xs font-bold rounded-xl px-3 py-2.5 focus:outline-none">
+                                <option value="cycle_pv">1. P-V тэгш өнцөгт циклийн цэвэр ажил олох</option>
+                                <option value="cycle_vt">2. V-T тэгш өнцөгт циклийн шинжилгээ</option>
+                                <option value="cycle_pt">3. P-T тэгш өнцөгт циклийн ажил олох</option>
+                                <option value="isobar_work">4. Изобар тэлэлтийн ажил ба T₂ олох</option>
+                                <option value="mole_mass">5. Бодисын тоо хэмжээ (моль) олох</option>
+                                <option value="internal_energy">6. Дотоод энергийн өөрчлөлт (ΔU) олох</option>
+                                <option value="random_cycle">🎲 Санамсаргүй диаграмм (P-V / P-T / V-T)</option>
+                            </select>
+
+                            <button onclick="generateAIProblem()" class="bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-lg transition-all flex items-center gap-2">
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                Шинэ бодлого үүсгэх
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="aiProblemCard" class="p-6 bg-slate-900/90 rounded-2xl border border-slate-800 space-y-4"></div>
+
+                    <div class="p-5 bg-slate-950 rounded-xl border border-slate-800 space-y-4">
+                        <div id="aiInputsArea" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+                        <div class="flex flex-wrap items-center gap-3 pt-2">
+                            <button onclick="checkAIAnswer()" class="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-black text-xs md:text-sm px-6 py-3 rounded-xl transition-all shadow-lg flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4"></i> Хариу шалгах
+                            </button>
+                            <button onclick="toggleAIHint()" class="bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs md:text-sm px-4 py-3 rounded-xl transition-all flex items-center gap-2 border border-slate-700">
+                                <i data-lucide="help-circle" class="w-4 h-4"></i> Сэжүүр авах
+                            </button>
+                            <button onclick="toggleAISolution()" class="bg-slate-800 hover:bg-slate-700 text-indigo-300 font-bold text-xs md:text-sm px-4 py-3 rounded-xl transition-all flex items-center gap-2 border border-slate-700">
+                                <i data-lucide="file-text" class="w-4 h-4"></i> Дэлгэрэнгүй бодолт
+                            </button>
+                        </div>
+
+                        <div id="aiHintBox" class="hidden p-4 bg-amber-950/40 border border-amber-500/40 rounded-xl text-xs text-amber-200"></div>
+                        <div id="aiSolutionBox" class="hidden p-4 bg-indigo-950/40 border border-indigo-500/40 rounded-xl text-xs text-indigo-200 space-y-2"></div>
+                        <div id="aiFeedbackBox" class="hidden p-4 rounded-xl text-xs md:text-sm font-bold border"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 3: БАГШИЙН ХЯНАЛТЫН САМБАР & EXCEL -->
+            <!-- ========================================== -->
+            <div id="section-teacher" class="hidden space-y-6">
+                <!-- ПИН КОД НЭВТРЭХ ЦОНХ -->
+                <div id="teacherLockScreen" class="p-8 bg-slate-950 rounded-3xl border-2 border-amber-500/40 text-center max-w-md mx-auto space-y-4">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-400 flex items-center justify-center mx-auto text-amber-400">
+                        <i data-lucide="lock" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-slate-100">Багшийн эрхээр нэвтрэх</h3>
+                    <p class="text-xs text-slate-400">Сурагчдын нэгдсэн дүн, асуултын анализыг үзэх ба Excel татах нууц кодоо оруулна уу.</p>
+                    <input type="password" id="teacherPinInput" placeholder="ПИН код оруулна уу (Үндсэн: 8888)" class="w-full bg-slate-900 border border-slate-700 text-slate-100 text-center font-black px-4 py-3 rounded-xl focus:outline-none focus:border-amber-400 text-base">
+                    <button onclick="unlockTeacherDashboard()" class="w-full py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black rounded-xl transition-all">
+                        Нэвтрэх
+                    </button>
+                    <p id="pinErrorMsg" class="text-xs text-red-400 font-bold hidden">ПИН код буруу байна! (Үндсэн код: 8888)</p>
+                </div>
+
+                <!-- БАГШИЙН ДАШБОРД (ПИН зөв үед) -->
+                <div id="teacherDashboard" class="hidden space-y-6">
+                    
+                    <!-- Клоуд төлөвийн мэдээлэл -->
+                    <div class="p-4 bg-emerald-950/30 rounded-2xl border border-emerald-500/40 flex flex-col sm:flex-row items-center justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+                            <span class="text-xs text-emerald-300 font-bold">Таны Google Apps Script шууд холбогдсон байна.</span>
+                        </div>
+                        <button onclick="syncFromGoogleSheet()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition-all flex items-center gap-1.5 shadow">
+                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Сүлжээнээс шинэ дүн татах
+                        </button>
+                    </div>
+
+                    <!-- Статистик самбар -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                            <p class="text-[10px] text-slate-400 font-extrabold uppercase">Нийт өгсөн сурагч</p>
+                            <p id="statTotalStudents" class="text-2xl font-black text-slate-100 mt-1">0</p>
+                        </div>
+                        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                            <p class="text-[10px] text-slate-400 font-extrabold uppercase">Дундаж оноо</p>
+                            <p id="statAvgScore" class="text-2xl font-black text-amber-400 mt-1">0 / 15</p>
+                        </div>
+                        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                            <p class="text-[10px] text-slate-400 font-extrabold uppercase">Дундаж амжилт</p>
+                            <p id="statAvgPercent" class="text-2xl font-black text-emerald-400 mt-1">0%</p>
+                        </div>
+                        <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                            <p class="text-[10px] text-slate-400 font-extrabold uppercase">Хамгийн их алдсан сэдэв</p>
+                            <p id="statWorstTopic" class="text-xs font-bold text-red-400 mt-2 truncate">Одоогоор байхгүй</p>
+                        </div>
+                    </div>
+
+                    <!-- Excel татах товчлуур -->
+                    <div class="p-5 bg-gradient-to-r from-emerald-950/40 via-slate-950 to-indigo-950/40 rounded-2xl border-2 border-emerald-500/50 flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div>
+                            <h4 class="text-base font-black text-emerald-300 flex items-center gap-2">
+                                <i data-lucide="file-spreadsheet" class="w-5 h-5 text-emerald-400"></i>
+                                Бүх сурагчдын үнэлгээ & Асуултын анализыг Excel (.xlsx) татах
+                            </h4>
+                            <p class="text-xs text-slate-400 mt-1">Excel файлд сурагч бүрийн 10 даалгаврын дэлгэрэнгүй оноо болон даалгавар тус бүрийн гүйцэтгэлийн хувь орно.</p>
+                        </div>
+                        <div class="flex items-center gap-3 w-full md:w-auto">
+                            <button onclick="downloadTeacherExcelReport()" class="w-full md:w-auto px-6 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs md:text-sm rounded-xl transition-all shadow-xl flex items-center justify-center gap-2 shrink-0">
+                                <i data-lucide="download" class="w-4 h-4"></i>
+                                Нэгдсэн Excel файл татах (.xlsx)
+                            </button>
+                            <button onclick="clearAllSubmissions()" class="px-4 py-3.5 bg-slate-900 hover:bg-red-950/60 text-red-400 hover:text-red-300 font-bold text-xs rounded-xl border border-slate-800 hover:border-red-500/40 transition-all flex items-center gap-1.5 shrink-0" title="Бүх өгөгдлийг цэвэрлэх">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Сурагчдын ирүүлсэн дүнгийн жагсаалт -->
+                    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h4 class="text-sm font-black text-slate-200 flex items-center gap-2">
+                                <i data-lucide="users" class="w-4 h-4 text-indigo-400"></i>
+                                Илгээсэн сурагчдын жагсаалт
+                            </h4>
+                            <span id="studentCountBadge" class="text-xs px-2.5 py-1 bg-slate-900 border border-slate-700 rounded-lg text-slate-300 font-bold">0 сурагч</span>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="border-b border-slate-800 text-slate-400 font-black uppercase text-[10px]">
+                                        <th class="py-2.5 px-3">№</th>
+                                        <th class="py-2.5 px-3">Овог нэр</th>
+                                        <th class="py-2.5 px-3">Анги</th>
+                                        <th class="py-2.5 px-3">Оноо /15</th>
+                                        <th class="py-2.5 px-3">Хувь %</th>
+                                        <th class="py-2.5 px-3">Түвшин</th>
+                                        <th class="py-2.5 px-3">Огноо, цаг</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teacherTableBody" class="divide-y divide-slate-800/60 font-semibold text-slate-200">
+                                    <tr>
+                                        <td colspan="7" class="py-6 text-center text-slate-500 font-medium">Одоогоор илгээсэн сурагч байхгүй байна.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Асуулт тус бүрийн анализ (Item Analysis) -->
+                    <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
+                        <h4 class="text-sm font-black text-slate-200 flex items-center gap-2">
+                            <i data-lucide="bar-chart-2" class="w-4 h-4 text-amber-400"></i>
+                            Даалгавар тус бүрийн амжилтын хувь (Анализ)
+                        </h4>
+                        <div id="questionAnalysisBars" class="space-y-3"></div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ЛОГИК -->
+    <script>
+        // 🔗 ТАНЫ ӨГСӨН GOOGLE APPS SCRIPT URL:
+        const GOOGLE_SHEET_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw9HT7vhLi6wkbWluk44jvyJYw4m8GyETvMe7JmcIw4XaGlc9onJd-SnCFQeJC20nqF6A/exec";
+        
+        const TEACHER_PIN = "8888"; 
+        const LOCAL_STORAGE_SUBMISSIONS_KEY = "thermo_final_submissions";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initQuiz();
+            generateAIProblem();
+            lucide.createIcons();
+            setTimeout(triggerKaTeX, 300);
+        });
+
+        function switchTab(tab) {
+            const btnQuiz = document.getElementById('tabBtnQuiz');
+            const btnAI = document.getElementById('tabBtnAI');
+            const btnTeacher = document.getElementById('tabBtnTeacher');
+
+            const secQuiz = document.getElementById('section-quiz');
+            const secAI = document.getElementById('section-ai');
+            const secTeacher = document.getElementById('section-teacher');
+
+            btnQuiz.className = "bg-slate-950/80 text-slate-400 hover:text-slate-200 px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all flex items-center gap-2 border border-slate-800 hover:border-slate-700";
+            btnAI.className = "bg-slate-950/80 text-slate-400 hover:text-slate-200 px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all flex items-center gap-2 border border-slate-800 hover:border-slate-700";
+            btnTeacher.className = "bg-slate-950/80 text-amber-400 hover:text-amber-300 px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all flex items-center gap-2 border border-amber-500/30 hover:border-amber-400/60 ml-auto";
+
+            secQuiz.classList.add('hidden');
+            secAI.classList.add('hidden');
+            secTeacher.classList.add('hidden');
+
+            if (tab === 'quiz') {
+                btnQuiz.className = "tab-active px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all flex items-center gap-2 border border-indigo-400/30";
+                secQuiz.classList.remove('hidden');
+            } else if (tab === 'ai') {
+                btnAI.className = "tab-active px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all flex items-center gap-2 border border-purple-400/30";
+                secAI.classList.remove('hidden');
+            } else if (tab === 'teacher') {
+                btnTeacher.className = "tab-active px-5 py-2.5 rounded-xl font-bold text-xs md:text-sm transition-all flex items-center gap-2 border border-amber-400/40 ml-auto";
+                secTeacher.classList.remove('hidden');
+            }
+            lucide.createIcons();
+            setTimeout(triggerKaTeX, 100);
+        }
+
+        function triggerKaTeX() {
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ]
+                });
+            }
+        }
+
+        // SVG Диаграммууд
+        function getSVG_Dynamic_Cycle(axisType, x1, x2, y1, y2, xUnit, yUnit) {
+            let xLabel = axisType === 'pV' ? 'V' : 'T';
+            let yLabel = axisType === 'VT' ? 'V' : 'P';
+
+            return `
+            <svg width="270" height="180" viewBox="0 0 270 180" class="rounded-xl bg-slate-950 border border-slate-800 my-2 shadow">
+                <line x1="45" y1="145" x2="245" y2="145" stroke="#94a3b8" stroke-width="2"/>
+                <line x1="45" y1="145" x2="45" y2="20" stroke="#94a3b8" stroke-width="2"/>
+                <polygon points="245,141 253,145 245,149" fill="#94a3b8"/>
+                <polygon points="41,20 45,12 49,20" fill="#94a3b8"/>
+                <text x="250" y="158" fill="#94a3b8" font-size="11" font-weight="bold">${xLabel} (${xUnit})</text>
+                <text x="25" y="22" fill="#94a3b8" font-size="11" font-weight="bold">${yLabel} (${yUnit})</text>
+                
+                <line x1="95" y1="145" x2="95" y2="45" stroke="#475569" stroke-dasharray="2,2"/>
+                <line x1="195" y1="145" x2="195" y2="45" stroke="#475569" stroke-dasharray="2,2"/>
+                <line x1="45" y1="110" x2="195" y2="110" stroke="#475569" stroke-dasharray="2,2"/>
+                <line x1="45" y1="45" x2="195" y2="45" stroke="#475569" stroke-dasharray="2,2"/>
+                
+                <text x="95" y="160" fill="#cbd5e1" font-size="10" text-anchor="middle" font-weight="bold">${x1}</text>
+                <text x="195" y="160" fill="#cbd5e1" font-size="10" text-anchor="middle" font-weight="bold">${x2}</text>
+                <text x="38" y="113" fill="#cbd5e1" font-size="10" text-anchor="end" font-weight="bold">${y1}</text>
+                <text x="38" y="48" fill="#cbd5e1" font-size="10" text-anchor="end" font-weight="bold">${y2}</text>
+
+                <rect x="95" y="45" width="100" height="65" fill="#a855f7" fill-opacity="0.15" stroke="#ec4899" stroke-width="2.5"/>
+                
+                <polygon points="145,42 153,45 145,48" fill="#ec4899"/>
+                <polygon points="198,75 195,83 192,75" fill="#ec4899"/>
+                <polygon points="148,107 140,110 148,113" fill="#ec4899"/>
+                <polygon points="92,80 95,72 98,80" fill="#ec4899"/>
+
+                <circle cx="95" cy="45" r="4" fill="#38bdf8"/>
+                <circle cx="195" cy="45" r="4" fill="#38bdf8"/>
+                <circle cx="195" cy="110" r="4" fill="#38bdf8"/>
+                <circle cx="95" cy="110" r="4" fill="#38bdf8"/>
+
+                <text x="85" y="40" fill="#38bdf8" font-size="11" font-weight="bold">1</text>
+                <text x="205" y="40" fill="#38bdf8" font-size="11" font-weight="bold">2</text>
+                <text x="205" y="120" fill="#38bdf8" font-size="11" font-weight="bold">3</text>
+                <text x="85" y="120" fill="#38bdf8" font-size="11" font-weight="bold">4</text>
+            </svg>`;
+        }
+
+        function getSVG_PV_1() {
+            return `
+            <svg width="240" height="150" viewBox="0 0 240 150" class="rounded-xl bg-slate-950 border border-slate-800 my-2 shadow">
+                <line x1="35" y1="125" x2="220" y2="125" stroke="#94a3b8" stroke-width="2"/>
+                <line x1="35" y1="125" x2="35" y2="15" stroke="#94a3b8" stroke-width="2"/>
+                <polygon points="220,121 228,125 220,129" fill="#94a3b8"/>
+                <polygon points="31,15 35,7 39,15" fill="#94a3b8"/>
+                <text x="225" y="138" fill="#94a3b8" font-size="12" font-weight="bold">V</text>
+                <text x="20" y="20" fill="#94a3b8" font-size="12" font-weight="bold">P</text>
+                <line x1="85" y1="95" x2="85" y2="45" stroke="#38bdf8" stroke-width="3"/>
+                <line x1="85" y1="45" x2="165" y2="45" stroke="#f59e0b" stroke-width="3"/>
+                <circle cx="85" cy="95" r="4" fill="#38bdf8"/>
+                <circle cx="85" cy="45" r="4" fill="#a855f7"/>
+                <circle cx="165" cy="45" r="4" fill="#f59e0b"/>
+                <text x="70" y="100" fill="#cbd5e1" font-size="13" font-weight="bold">1</text>
+                <text x="70" y="45" fill="#cbd5e1" font-size="13" font-weight="bold">2</text>
+                <text x="175" y="45" fill="#cbd5e1" font-size="13" font-weight="bold">3</text>
+            </svg>`;
+        }
+
+        function getSVG_PV_2() {
+            return `
+            <svg width="240" height="150" viewBox="0 0 240 150" class="rounded-xl bg-slate-950 border border-slate-800 my-2 shadow">
+                <line x1="35" y1="125" x2="220" y2="125" stroke="#94a3b8" stroke-width="2"/>
+                <line x1="35" y1="125" x2="35" y2="15" stroke="#94a3b8" stroke-width="2"/>
+                <polygon points="220,121 228,125 220,129" fill="#94a3b8"/>
+                <polygon points="31,15 35,7 39,15" fill="#94a3b8"/>
+                <text x="225" y="138" fill="#94a3b8" font-size="12" font-weight="bold">V</text>
+                <text x="20" y="20" fill="#94a3b8" font-size="12" font-weight="bold">P</text>
+                <line x1="75" y1="95" x2="155" y2="95" stroke="#f59e0b" stroke-width="3"/>
+                <line x1="155" y1="95" x2="155" y2="35" stroke="#38bdf8" stroke-width="3"/>
+                <circle cx="75" cy="95" r="4" fill="#f59e0b"/>
+                <circle cx="155" cy="95" r="4" fill="#a855f7"/>
+                <circle cx="155" cy="35" r="4" fill="#38bdf8"/>
+                <text x="60" y="100" fill="#cbd5e1" font-size="13" font-weight="bold">1</text>
+                <text x="165" y="100" fill="#cbd5e1" font-size="13" font-weight="bold">2</text>
+                <text x="165" y="40" fill="#cbd5e1" font-size="13" font-weight="bold">3</text>
+            </svg>`;
+        }
+
+        function getSVG_VT_Cycle() {
+            return getSVG_Dynamic_Cycle('VT', 'T₀', '2T₀', 'V₀', '2V₀', '', '');
+        }
+
+        // 10 Сорилын асуултууд
+        const examQuestions = [
+            { id: 1, topic: "P-V диаграмм ба Изопроцесс", q: "Өгөгдсөн $P-V$ диаграмм дээрх идеал хийн 1→2 ба 2→3 процессуудыг ЗӨВ нэрлэнэ үү.", svg: getSVG_PV_1(), options: ["1→2 изохор, 2→3 изобар", "1→2 изотерм, 2→3 изохор", "1→2 изобар, 2→3 изохор", "1→2 изобар, 2→3 изотерм"], correct: 0, score: 1, explanation: "1→2 үед эзлэхүүн тогтмол тул изохор; 2→3 үед даралт тогтмол тул изобар процесс." },
+            { id: 2, topic: "Температурын харьцуулалт", q: "Дээрх $P-V$ диаграммд үзүүлсэн төлвүүдийн алинд хий хамгийн ИХ температуртай байх вэ?", svg: getSVG_PV_1(), options: ["1 төлөвт", "2 төлөвт", "3 төлөвт", "Бүгдэд ижил"], correct: 2, score: 2, explanation: "$T = \\frac{PV}{\\nu R}$. 3 цэг дээр даралт ба эзлэхүүн аль аль нь хамгийн их тул 3 төлөвт температур хамгийн өндөр." },
+            { id: 3, topic: "Хийн хийх ажил", q: "1-р зураг дахь төлвийн өөрчлөлтийн аль хэсэгт хий ажил хийхгүй ($A = 0$) вэ?", svg: getSVG_PV_1(), options: ["Бүх хэсэгт", "1 → 2 хэсэгт", "2 → 3 хэсэгт", "Ажил хийнэ"], correct: 1, score: 1, explanation: "1→2 процесс изохор ($V = \\text{const}$) тул $\\Delta V = 0 \\implies A = 0$." },
+            { id: 4, topic: "P-V эзлэхүүн", q: "Зурагт өгөгдсөн төлвийн өөрчлөлтөөр хий ямар төлөвт хамгийн их эзлэхүүнтэй байх вэ?", svg: getSVG_PV_2(), options: ["Зөвхөн 1", "Зөвхөн 2", "Зөвхөн 3", "2 ба 3 төлөвт ижил"], correct: 3, score: 1, explanation: "1-ээс 2 руу тэлсэн ба 2-оос 3 руу изохор халаалт ($V_2 = V_3$) тул 2 ба 3 төлөвт хамгийн их эзлэхүүнтэй." },
+            { id: 5, topic: "V-T циклийн процессууд", q: "Зурагт үзүүлсэн циклийн 1-2, 2-3, 3-4, 4-1 процессуудыг ЗӨВ нэрлэсэн мөрийг сонгоно уу.", svg: getSVG_VT_Cycle(), options: ["Изотерм, Изобар, Изотерм, Изобар", "Изобар, Изохор, Изохор, Изохор", "Изохор, Изотерм, Изохор, Изотерм", "Изохор, Изобар, Изохор, Изотерм"], correct: 2, score: 2, explanation: "1-2: V=const (изохор), 2-3: T=const (изотерм), 3-4: V=const (изохор), 4-1: T=const (изотерм)." },
+            { id: 6, topic: "Төлвийн параметрүүд", q: "V-T циклийн 1 ба 2 төлвүүдийн даралт, эзлэхүүн, температурын харьцаа аль нь зөв бэ?", svg: getSVG_VT_Cycle(), options: ["$P_1 < P_2; \\; V_1 = V_2; \\; T_1 < T_2$", "$P_1 > P_2; \\; V_1 < V_2; \\; T_1 = T_2$", "$P_1 = P_2; \\; V_1 > V_2; \\; T_1 > T_2$", "$P_1 = P_2; \\; V_1 < V_2; \\; T_1 < T_2$"], correct: 0, score: 2, explanation: "$V_1 = V_2 = 2V_0$, $T_1 = T_0 < T_2 = 2T_0$. Шарлийн хуулиар $\\frac{P_1}{T_1} = \\frac{P_2}{T_2} \\implies P_1 < P_2$." },
+            { id: 7, topic: "Цикл дэх ажил", q: "Уг $V-T$ циклийн аль хэсгүүдэд механик ажил хийгдэхгүй ($A = 0$) вэ?", svg: getSVG_VT_Cycle(), options: ["1-2 ба 3-4 хэсгүүдэд", "Зөвхөн 2-3 хэсэгт", "2-3 ба 4-1 хэсгүүдэд", "Бүх хэсэгт ажил хийгдэнэ"], correct: 0, score: 1, explanation: "Эзлэхүүн тогтмол байх 1-2 ба 3-4 изохор хэсгүүдэд ажил хийгдэхгүй." },
+            { id: 8, topic: "Изотерм дотоод энерги", q: "2-3 изотерм процесс дахь хийн дотоод энергийн өөрчлөлт $\\Delta U$ хэд байх вэ?", svg: getSVG_VT_Cycle(), options: ["$\\Delta U = \\frac{3}{2}RT_0$", "$\\Delta U = 3RT_0$", "$\\Delta U = 0$", "$\\Delta U = 5RT_0$"], correct: 2, score: 1, explanation: "$T = \\text{const} \\implies \\Delta T = 0 \\implies \\Delta U = 0$." },
+            { id: 9, topic: "Бодисын тоо хэмжээ", q: "$32\\text{ г}$ хүчилтөрөгч ($\\text{O}_2$) хийд ямар тоо хэмжээний бодис агуулагдах вэ? ($\\mu = 32\\text{ г/моль}$)", options: ["$\\frac{1}{32}\\text{ моль}$", "$\\frac{1}{16}\\text{ моль}$", "$1\\text{ моль}$", "$2\\text{ моль}$"], correct: 2, score: 1, explanation: "$\\nu = \\frac{m}{\\mu} = \\frac{32}{32} = 1\\text{ моль}$." },
+            { id: 10, topic: "Изобар ажил ба T₂", q: "$m = 20\\text{ г}$ устөрөгч ($\\mu = 2\\text{ г/моль}$) изобараар тэлж эзлэхүүн нь 2 дахин ихсэв ($V_2 = 2V_1$). Анхны температур $T_1 = 300\\text{ К}$ бол $T_2$ ба ажил $A$ хэд вэ? ($R = 8.31$)", options: ["$T_2 = 600\\text{ К}, \\; A = 24930\\text{ Ж}$", "$T_2 = 300\\text{ К}, \\; A = 12465\\text{ Ж}$", "$T_2 = 600\\text{ К}, \\; A = 49860\\text{ Ж}$", "$T_2 = 150\\text{ К}, \\; A = 8310\\text{ Ж}$"], correct: 0, score: 3, explanation: "$\\nu = 20/2 = 10\\text{ моль}$. $T_2 = 2T_1 = 600\\text{ К}$. $A = \\nu R\\Delta T = 10 \\cdot 8.31 \\cdot 300 = 24930\\text{ Ж}$." }
+        ];
+
+        let userQuizAnswers = {};
+
+        function initQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            examQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = "p-5 md:p-6 bg-slate-900 rounded-2xl border border-slate-800 space-y-3";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-lg text-xs font-bold">${q.topic}</span>
+                        <span class="text-xs text-slate-400 font-bold">Даалгавар ${idx + 1}/10 | <span class="text-indigo-400">${q.score} оноо</span></span>
+                    </div>
+                    <p class="text-sm md:text-base font-bold text-slate-100">${q.q}</p>
+                    ${q.svg ? `<div class="flex justify-center">${q.svg}</div>` : ''}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2" id="q-opts-${idx}">
+                        ${q.options.map((opt, i) => `
+                            <button type="button" onclick="selectQuizAnswer(${idx}, ${i})" class="quiz-opt-btn w-full text-left px-4 py-3 bg-slate-950 text-slate-200 font-medium text-xs md:text-sm rounded-xl border-2 border-slate-800 hover:border-amber-500/50 transition-all flex items-center">
+                                <span class="inline-block w-6 h-6 rounded-full bg-slate-800 text-center leading-6 mr-3 text-xs font-bold text-slate-400 shrink-0">${String.fromCharCode(65+i)}</span>
+                                <span>${opt}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="q-explanation-${idx}" class="hidden p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-xs text-slate-300"></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function selectQuizAnswer(qIdx, optIdx) {
+            userQuizAnswers[qIdx] = optIdx;
+            const container = document.getElementById(`q-opts-${qIdx}`);
+            const buttons = container.querySelectorAll('.quiz-opt-btn');
+            buttons.forEach((btn, idx) => {
+                if (idx === optIdx) {
+                    btn.className = "quiz-opt-btn w-full text-left px-4 py-3 bg-indigo-600 text-white font-bold text-xs md:text-sm rounded-xl transition-all shadow-lg flex items-center border-2 border-indigo-400";
+                } else {
+                    btn.className = "quiz-opt-btn w-full text-left px-4 py-3 bg-slate-950 text-slate-200 font-medium text-xs md:text-sm rounded-xl border-2 border-slate-800 hover:border-amber-500/50 transition-all flex items-center";
+                }
+            });
+            document.getElementById('quiz-warning').classList.add('hidden');
+        }
+
+        // --- СУРАГЧ ШУУД GOOGLE SHEET РҮҮ ДҮНГЭЭ ИЛГЭЭХ ---
+        async function submitStudentQuiz() {
+            const name = document.getElementById('studentName').value.trim();
+            const studentClass = document.getElementById('studentClass').value.trim();
+
+            if (!name || !studentClass) {
+                alert('Сурагчийн овог нэр болон анги бүлгийг бүрэн бичнэ үү!');
+                return;
+            }
+
+            const answeredCount = Object.keys(userQuizAnswers).length;
+            if (answeredCount < examQuestions.length) {
+                const warningDiv = document.getElementById('quiz-warning');
+                warningDiv.innerText = `Та ${examQuestions.length - answeredCount} асуултанд хариулаагүй байна. Бүх даалгаврыг гүйцээнэ үү.`;
+                warningDiv.classList.remove('hidden');
+                return;
+            }
+
+            let earnedScore = 0;
+            let maxScore = 0;
+            let questionResults = [];
+
+            examQuestions.forEach((q, qIdx) => {
+                maxScore += q.score;
+                const userChoice = userQuizAnswers[qIdx];
+                const isCorrect = userChoice === q.correct;
+                const scoreObtained = isCorrect ? q.score : 0;
+                earnedScore += scoreObtained;
+
+                questionResults.push({
+                    qId: q.id,
+                    topic: q.topic,
+                    userChoice: userChoice,
+                    isCorrect: isCorrect,
+                    score: scoreObtained,
+                    maxScore: q.score
+                });
+
+                const container = document.getElementById(`q-opts-${qIdx}`);
+                const buttons = container.querySelectorAll('.quiz-opt-btn');
+                const explBox = document.getElementById(`q-explanation-${qIdx}`);
+
+                buttons.forEach((btn, optIdx) => {
+                    btn.disabled = true;
+                    if (userChoice === optIdx && !isCorrect) {
+                        btn.className = "quiz-opt-btn w-full text-left px-4 py-3 bg-red-600 text-white font-bold text-xs md:text-sm rounded-xl flex items-center border-2 border-red-400 shadow-md";
+                    } else if (userChoice === optIdx && isCorrect) {
+                        btn.className = "quiz-opt-btn w-full text-left px-4 py-3 bg-emerald-500 text-slate-950 font-bold text-xs md:text-sm rounded-xl flex items-center border-2 border-emerald-300 shadow-md";
+                    } else if (optIdx === q.correct) {
+                        btn.className = "quiz-opt-btn w-full text-left px-4 py-3 bg-slate-800 text-emerald-400 font-bold text-xs md:text-sm rounded-xl border-2 border-emerald-500/50 flex items-center";
+                    } else {
+                        btn.className = "quiz-opt-btn w-full text-left px-4 py-3 bg-slate-950 text-slate-600 font-medium text-xs md:text-sm rounded-xl border-2 border-slate-900 flex items-center opacity-40";
+                    }
+                });
+
+                explBox.classList.remove('hidden');
+                explBox.innerHTML = `<span class="text-amber-400 font-bold">Зөв тайлал:</span> ${q.explanation}`;
+            });
+
+            const percentage = Math.round((earnedScore / maxScore) * 100);
+            let perfLevel = percentage >= 85 ? "Түвшин IV (Маш сайн)" : (percentage >= 65 ? "Түвшин III (Сайн)" : (percentage >= 40 ? "Түвшин II (Дунд)" : "Түвшин I (Хангалтгүй)"));
+
+            const submission = {
+                timestamp: new Date().toLocaleString(),
+                name: name,
+                studentClass: studentClass,
+                earnedScore: earnedScore,
+                maxScore: maxScore,
+                percentage: percentage,
+                perfLevel: perfLevel,
+                details: questionResults
+            };
+
+            // LocalStorage-д давхар хуулбар хадгалах
+            saveSubmissionLocally(submission);
+
+            const submitBtn = document.getElementById('submitQuizBtn');
+            const progress = document.getElementById('sendProgress');
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50');
+            progress.classList.remove('hidden');
+
+            try {
+                // GOOGLE APPS SCRIPT РҮҮ ИЛГЭЭХ
+                await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(submission)
+                });
+
+                progress.classList.add('hidden');
+                const resultDiv = document.getElementById('quiz-result');
+                resultDiv.classList.remove('hidden');
+                resultDiv.className = `mt-8 p-8 rounded-3xl text-center shadow-2xl border-2 bg-slate-900 border-emerald-500/60 text-emerald-200`;
+                resultDiv.innerHTML = `
+                    <div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400 flex items-center justify-center mx-auto mb-3 text-emerald-400">
+                        <i data-lucide="check" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-2xl font-black mb-1">${name} (${studentClass})</h2>
+                    <p class="text-3xl font-black mb-2 text-white">Таны оноо: ${earnedScore} / ${maxScore} (${percentage}%) - ${perfLevel}</p>
+                    <p class="text-sm text-emerald-300 font-semibold">Таны сорилын дүн багшийн нэгдсэн Google Sheet рүү амжилттай илгээгдлээ!</p>
+                `;
+            } catch(e) {
+                progress.classList.add('hidden');
+                alert('Сүлжээний алдаа гарлаа. Гэхдээ дүн төхөөрөмжид хадгалагдлаа.');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-50');
+            }
+
+            lucide.createIcons();
+            setTimeout(triggerKaTeX, 100);
+        }
+
+        function saveSubmissionLocally(sub) {
+            let list = getLocalSubmissions();
+            list.unshift(sub);
+            localStorage.setItem(LOCAL_STORAGE_SUBMISSIONS_KEY, JSON.stringify(list));
+        }
+
+        function getLocalSubmissions() {
+            try {
+                const data = localStorage.getItem(LOCAL_STORAGE_SUBMISSIONS_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch(e) { return []; }
+        }
+
+        // ==========================================
+        // --- 🔐 БАГШИЙН ДАШБОРД БА EXCEL ЭКСПОРТ ---
+        // ==========================================
+        function unlockTeacherDashboard() {
+            const pin = document.getElementById('teacherPinInput').value.trim();
+            const err = document.getElementById('pinErrorMsg');
+
+            if (pin === TEACHER_PIN) {
+                document.getElementById('teacherLockScreen').classList.add('hidden');
+                document.getElementById('teacherDashboard').classList.remove('hidden');
+                syncFromGoogleSheet();
+            } else {
+                err.classList.remove('hidden');
+            }
+        }
+
+        // Google Sheet-ээс бүх сурагчдын дүнг татаж харуулах
+        async function syncFromGoogleSheet() {
+            try {
+                const res = await fetch(GOOGLE_SHEET_WEB_APP_URL);
+                const cloudList = await res.json();
+                if (Array.isArray(cloudList) && cloudList.length > 0) {
+                    localStorage.setItem(LOCAL_STORAGE_SUBMISSIONS_KEY, JSON.stringify(cloudList));
+                }
+            } catch(e) {
+                console.log("Local cache used:", e);
+            }
+            renderTeacherDashboard();
+        }
+
+        function renderTeacherDashboard() {
+            const list = getLocalSubmissions();
+            const total = list.length;
+            document.getElementById('statTotalStudents').innerText = total;
+            document.getElementById('studentCountBadge').innerText = `${total} сурагч`;
+
+            if (total === 0) {
+                document.getElementById('statAvgScore').innerText = '0 / 15';
+                document.getElementById('statAvgPercent').innerText = '0%';
+                document.getElementById('statWorstTopic').innerText = 'Одоогоор байхгүй';
+                document.getElementById('teacherTableBody').innerHTML = `<tr><td colspan="7" class="py-6 text-center text-slate-500 font-medium">Одоогоор илгээсэн сурагч бүртгэгдээгүй байна.</td></tr>`;
+                document.getElementById('questionAnalysisBars').innerHTML = `<p class="text-xs text-slate-500">Сурагчид илгээсний дараа анализ харагдана.</p>`;
+                return;
+            }
+
+            let sumScore = 0;
+            let sumPercent = 0;
+            let qCorrectCount = Array(examQuestions.length).fill(0);
+
+            list.forEach(s => {
+                sumScore += s.earnedScore;
+                sumPercent += s.percentage;
+                if (s.details) {
+                    s.details.forEach((d, idx) => {
+                        if (d.isCorrect) qCorrectCount[idx]++;
+                    });
+                }
+            });
+
+            const avgScore = (sumScore / total).toFixed(1);
+            const avgPercent = Math.round(sumPercent / total);
+
+            document.getElementById('statAvgScore').innerText = `${avgScore} / 15`;
+            document.getElementById('statAvgPercent').innerText = `${avgPercent}%`;
+
+            let lowestIdx = 0;
+            let lowestRate = 100;
+            qCorrectCount.forEach((cnt, idx) => {
+                let rate = (cnt / total) * 100;
+                if (rate < lowestRate) {
+                    lowestRate = rate;
+                    lowestIdx = idx;
+                }
+            });
+            document.getElementById('statWorstTopic').innerText = `${examQuestions[lowestIdx].topic} (${Math.round(lowestRate)}%)`;
+
+            // Сурагчдын хүснэгт
+            const tbody = document.getElementById('teacherTableBody');
+            tbody.innerHTML = list.map((s, idx) => `
+                <tr class="hover:bg-slate-900/60 transition-colors">
+                    <td class="py-2.5 px-3 text-slate-500">${idx + 1}</td>
+                    <td class="py-2.5 px-3 font-bold text-slate-100">${s.name}</td>
+                    <td class="py-2.5 px-3 text-slate-300">${s.studentClass}</td>
+                    <td class="py-2.5 px-3 font-extrabold text-amber-300">${s.earnedScore} / 15</td>
+                    <td class="py-2.5 px-3 font-bold text-emerald-400">${s.percentage}%</td>
+                    <td class="py-2.5 px-3 text-[11px] text-slate-300">${s.perfLevel}</td>
+                    <td class="py-2.5 px-3 text-[10px] text-slate-400">${s.timestamp}</td>
+                </tr>
+            `).join('');
+
+            // Даалгавар бүрийн амжилтын хувь
+            const analysisContainer = document.getElementById('questionAnalysisBars');
+            analysisContainer.innerHTML = examQuestions.map((q, idx) => {
+                const count = qCorrectCount[idx];
+                const rate = Math.round((count / total) * 100);
+                const color = rate >= 70 ? 'bg-emerald-500' : (rate >= 40 ? 'bg-amber-500' : 'bg-red-500');
+
+                return `
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-xs font-semibold">
+                            <span class="text-slate-300">Даалгавар ${idx + 1}: ${q.topic}</span>
+                            <span class="font-bold text-slate-100">${count}/${total} сурагч (${rate}%)</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                            <div class="${color} h-full rounded-full transition-all duration-500" style="width: ${rate}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        function clearAllSubmissions() {
+            if (confirm("Бүх сурагчдын ирүүлсэн дүнг цэвэрлэхдээ итгэлтэй байна уу?")) {
+                localStorage.removeItem(LOCAL_STORAGE_SUBMISSIONS_KEY);
+                renderTeacherDashboard();
+            }
+        }
+
+        // --- НЭГДСЭН EXCEL (.XLSX) ФАЙЛ ТАТАХ ---
+        function downloadTeacherExcelReport() {
+            const list = getLocalSubmissions();
+            if (list.length === 0) {
+                alert("Одоогоор Excel татах сурагчийн дүн бүртгэгдээгүй байна!");
+                return;
+            }
+
+            const wb = XLSX.utils.book_new();
+
+            // 1-Р ШИЙТ: СУРАГЧДЫН НЭГДСЭН ҮНЭЛГЭЭ
+            const ws1_data = [
+                ["ФИЗИК XI - ИЗОПРОЦЕСС БА ЦИКЛ ПРОЦЕСС"],
+                ["СУРАГЧДЫН НЭГДСЭН ҮНЭЛГЭЭНИЙ ТАЙЛАН"],
+                [`Тайлан гаргасан огноо: ${new Date().toLocaleString()}`, `Нийт сурагч: ${list.length}`],
+                [],
+                ["№", "Овог нэр", "Анги бүлэг", "А1 (1о)", "А2 (2о)", "А3 (1о)", "А4 (1о)", "А5 (2о)", "А6 (2о)", "А7 (1о)", "А8 (1о)", "А9 (1о)", "А10 (3о)", "Нийт оноо", "Хувь %", "Түвшин", "Огноо"]
+            ];
+
+            list.forEach((s, idx) => {
+                const row = [
+                    idx + 1,
+                    s.name,
+                    s.studentClass,
+                    s.details && s.details[0] ? (s.details[0].isCorrect ? 1 : 0) : 0,
+                    s.details && s.details[1] ? (s.details[1].isCorrect ? 2 : 0) : 0,
+                    s.details && s.details[2] ? (s.details[2].isCorrect ? 1 : 0) : 0,
+                    s.details && s.details[3] ? (s.details[3].isCorrect ? 1 : 0) : 0,
+                    s.details && s.details[4] ? (s.details[4].isCorrect ? 2 : 0) : 0,
+                    s.details && s.details[5] ? (s.details[5].isCorrect ? 2 : 0) : 0,
+                    s.details && s.details[6] ? (s.details[6].isCorrect ? 1 : 0) : 0,
+                    s.details && s.details[7] ? (s.details[7].isCorrect ? 1 : 0) : 0,
+                    s.details && s.details[8] ? (s.details[8].isCorrect ? 1 : 0) : 0,
+                    s.details && s.details[9] ? (s.details[9].isCorrect ? 3 : 0) : 0,
+                    s.earnedScore,
+                    s.percentage,
+                    s.perfLevel,
+                    s.timestamp
+                ];
+                ws1_data.push(row);
+            });
+
+            const ws1 = XLSX.utils.aoa_to_sheet(ws1_data);
+            ws1['!cols'] = [
+                { wch: 5 }, { wch: 25 }, { wch: 10 },
+                { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 }, { wch: 8 },
+                { wch: 12 }, { wch: 10 }, { wch: 22 }, { wch: 20 }
+            ];
+            XLSX.utils.book_append_sheet(wb, ws1, "Сурагчдын үнэлгээ");
+
+            // 2-Р ШИЙТ: АСУУЛТЫН АНАЛИЗ (ITEM ANALYSIS)
+            const ws2_data = [
+                ["ФИЗИК XI - ДААЛГАВАР ТУС БҮРИЙН ГҮЙЦЭТГЭЛИЙН АНАЛИЗ"],
+                [`Нийт сурагч: ${list.length}`],
+                [],
+                ["Даалгавар №", "Сэдэв ба Агуулга", "Оноо", "Зөв хийсэн сурагч", "Амжилтын хувь %", "Багшийн дүгнэлт / Зөвлөмж"]
+            ];
+
+            examQuestions.forEach((q, idx) => {
+                let correctCount = 0;
+                list.forEach(s => {
+                    if (s.details && s.details[idx] && s.details[idx].isCorrect) correctCount++;
+                });
+                let rate = Math.round((correctCount / list.length) * 100);
+                let recommendation = rate >= 70 ? "Сэдвийг сайн эзэмшсэн" : (rate >= 40 ? "Давтах дасгал ажиллуулах" : "Энэ сэдвийг хичээл дээр дахин тайлбарлах шаардлагатай");
+
+                ws2_data.push([
+                    idx + 1,
+                    q.topic,
+                    q.score,
+                    correctCount,
+                    rate,
+                    recommendation
+                ]);
+            });
+
+            const ws2 = XLSX.utils.aoa_to_sheet(ws2_data);
+            ws2['!cols'] = [
+                { wch: 12 }, { wch: 35 }, { wch: 8 }, { wch: 18 }, { wch: 16 }, { wch: 45 }
+            ];
+            XLSX.utils.book_append_sheet(wb, ws2, "Асуултын анализ");
+
+            const dateStr = new Date().toISOString().slice(0, 10);
+            XLSX.writeFile(wb, `Физик_XI_Нэгдсэн_Үнэлгээ_${dateStr}.xlsx`);
+        }
+
+        // ==========================================
+        // --- 🤖 AI ЦИКЛ & БОДЛОГО ҮҮСГЭГЧ ---
+        // ==========================================
+        let currentGeneratedAIProblem = null;
+
+        function generateAIProblem() {
+            let type = document.getElementById('aiProblemType').value;
+            const container = document.getElementById('aiProblemCard');
+            const inputsArea = document.getElementById('aiInputsArea');
+
+            document.getElementById('aiHintBox').classList.add('hidden');
+            document.getElementById('aiSolutionBox').classList.add('hidden');
+            document.getElementById('aiFeedbackBox').classList.add('hidden');
+
+            if (type === 'random_cycle') {
+                const cycleTypes = ['cycle_pv', 'cycle_vt', 'cycle_pt'];
+                type = cycleTypes[Math.floor(Math.random() * cycleTypes.length)];
+            }
+
+            let prob = {
+                type: type,
+                title: '',
+                desc: '',
+                svg: null,
+                fields: [],
+                answers: {},
+                hint: '',
+                solution: ''
+            };
+
+            if (type === 'cycle_pv') {
+                const p1 = (Math.floor(Math.random() * 3) + 1) * 100;
+                const p2 = p1 + (Math.floor(Math.random() * 2) + 1) * 100;
+                const v1 = Math.floor(Math.random() * 3) + 2;
+                const v2 = v1 + (Math.floor(Math.random() * 3) + 2);
+
+                const deltaP_Pa = (p2 - p1) * 1000;
+                const deltaV_m3 = (v2 - v1) * 0.001;
+                const netWork = Math.round(deltaP_Pa * deltaV_m3);
+                const work12 = Math.round((p2 * 1000) * deltaV_m3);
+
+                prob.title = "P-V Тэгш өнцөгт циклийн цэвэр ажил ба тэлэлт";
+                prob.desc = `$P-V$ хавтгайд өгөгдсөн $1 \\to 2 \\to 3 \\to 4 \\to 1$ цикл процессоор хий ажиллажээ. Даралт $P_1 = ${p1}\\text{ кПа}$, $P_2 = ${p2}\\text{ кПа}$, эзлэхүүн $V_1 = ${v1}\\text{ л}$, $V_2 = ${v2}\\text{ л}$ өгөгдсөн бол: <br>1) $1 \\to 2$ изобар тэлэлтийн ажил $A_{12}$, <br>2) Нэг бүтэн циклд хийн гүйцэтгэсэн цэвэр ашигтай ажил $A_{\\text{нийт}}$-ийг ол.`;
+                prob.svg = getSVG_Dynamic_Cycle('pV', v1, v2, p1, p2, 'л', 'кПа');
+                prob.fields = [
+                    { id: 'aiAnsA12', label: '1-2 хэсгийн ажил A₁₂ (Ж):', placeholder: 'Жишээ: 600' },
+                    { id: 'aiAnsNetWork', label: 'Циклийн цэвэр ажил A_нийт (Ж):', placeholder: 'Жишээ: 300' }
+                ];
+                prob.answers = { aiAnsA12: work12, aiAnsNetWork: netWork };
+                prob.hint = `1) 1-2 изобар тэлэлтэд $A_{12} = P_2 \\cdot (V_2 - V_1)$.<br>2) Битүү циклийн цэвэр ажил: $A_{\\text{нийт}} = (P_2 - P_1) \\cdot (V_2 - V_1)$. ($1\\text{ л} = 10^{-3}\\text{ м}^3$, $1\\text{ кПа} = 10^3\\text{ Па}$).`;
+                prob.solution = `
+                    <p><b>1. 1-2 изобар тэлэлтийн ажил:</b></p>
+                    <p>$A_{12} = P_2 (V_2 - V_1) = (${p2} \\cdot 10^3\\text{ Па}) \\cdot (${v2} - ${v1}) \\cdot 10^{-3}\\text{ м}^3 = \\mathbf{${work12}\\text{ Ж}}$</p>
+                    <p><b>2. Бүтэн циклийн цэвэр ажил (Талбай):</b></p>
+                    <p>$A_{\\text{нийт}} = \\Delta P \\cdot \\Delta V = (${p2} - ${p1}) \\cdot 10^3 \\cdot (${v2} - ${v1}) \\cdot 10^{-3} = \\mathbf{${netWork}\\text{ Ж}}$</p>
+                `;
+            } else if (type === 'cycle_vt') {
+                const T1 = (Math.floor(Math.random() * 3) + 2) * 100;
+                const T2 = T1 * 2;
+                const V1 = Math.floor(Math.random() * 3) + 2;
+                const V2 = V1 * 2;
+                const moles = Math.floor(Math.random() * 2) + 1;
+                const dU_12 = Math.round(1.5 * moles * 8.31 * (T2 - T1));
+
+                prob.title = "V-T Тэгш өнцөгт циклийн энерги & ажил";
+                prob.desc = `$\\nu = ${moles}\\text{ моль}$ нэг атомт идеал хийд явагдсан $V-T$ циклийн хувьд $T_1 = ${T1}\\text{ К}$, $T_2 = ${T2}\\text{ К}$, $V_1 = ${V1}\\text{ л}$, $V_2 = ${V2}\\text{ л}$ байв. <br>1) 1-2 изохор халаалтад дотоод энергийн өөрчлөлт $\\Delta U_{12}$, <br>2) 2-3 изотерм төлөвийн үед $\\Delta U_{23}$ хэд байх вэ? ($R = 8.31\\text{ Ж/(моль}\\cdot\\text{К)}$)`;
+                prob.svg = getSVG_Dynamic_Cycle('VT', T1, T2, V1, V2, 'К', 'л');
+                prob.fields = [
+                    { id: 'aiAnsDU12', label: '1-2 хэсгийн ΔU₁₂ (Ж):', placeholder: 'Жишээ: 1246' },
+                    { id: 'aiAnsDU23', label: '2-3 хэсгийн ΔU₂₃ (Ж):', placeholder: 'Жишээ: 0' }
+                ];
+                prob.answers = { aiAnsDU12: dU_12, aiAnsDU23: 0 };
+                prob.hint = `1) 1-2 процесст $V = ${V2}\\text{ л} = \\text{const}$ тул $\\Delta U_{12} = \\frac{3}{2}\\nu R (T_2 - T_1)$.<br>2) 2-3 процесст $T = ${T2}\\text{ К} = \\text{const}$ тул $\\Delta U_{23} = 0$.`;
+                prob.solution = `
+                    <p><b>1. 1-2 изохор халаалтын дотоод энерги:</b></p>
+                    <p>$\\Delta U_{12} = \\frac{3}{2}\\nu R (T_2 - T_1) = 1.5 \\cdot ${moles} \\cdot 8.31 \\cdot (${T2} - ${T1}) = \\mathbf{${dU_12}\\text{ Ж}}$</p>
+                    <p><b>2. 2-3 изотерм процесс:</b></p>
+                    <p>$T = \\text{const} \\implies \\mathbf{\\Delta U_{23} = 0\\text{ Ж}}$</p>
+                `;
+            } else if (type === 'cycle_pt') {
+                const P1 = 100;
+                const P2 = 300;
+                const T1 = (Math.floor(Math.random() * 3) + 2) * 100;
+                const T2 = T1 + 200;
+                const moles = (Math.floor(Math.random() * 3) + 1);
+                const work12 = Math.round(moles * 8.31 * (T2 - T1));
+
+                prob.title = "P-T Тэгш өнцөгт цикл дэх изобар ажил";
+                prob.desc = `$\\nu = ${moles}\\text{ моль}$ хий $P-T$ хавтгайд үзүүлсэн тэгш өнцөгт цикл хийв. Даралт $P_1 = ${P1}\\text{ кПа}$, $P_2 = ${P2}\\text{ кПа}$, температур $T_1 = ${T1}\\text{ К}$, $T_2 = ${T2}\\text{ К}$ өгөгджээ. <br>1) 1-2 изобар халаалтын үед хийн гүйцэтгэсэн ажил $A_{12}$, <br>2) 2-3 изотерм даралт буурах үеийн дотоод энергийн өөрчлөлт $\\Delta U_{23}$-г ол ($R = 8.31\\text{ Ж/(моль}\\cdot\\text{К)}$).`;
+                prob.svg = getSVG_Dynamic_Cycle('pT', T1, T2, P1, P2, 'К', 'кПа');
+                prob.fields = [
+                    { id: 'aiAnsPTWork12', label: '1-2 изобар ажил A₁₂ (Ж):', placeholder: 'Жишээ: 1662' },
+                    { id: 'aiAnsPTDU23', label: '2-3 изотерм ΔU₂₃ (Ж):', placeholder: 'Жишээ: 0' }
+                ];
+                prob.answers = { aiAnsPTWork12: work12, aiAnsPTDU23: 0 };
+                prob.hint = `1) 1-2 процесс нь $P = P_2 = \\text{const}$ изобар халаалт тул $A_{12} = \\nu R (T_2 - T_1)$.<br>2) 2-3 процесс нь $T = T_2 = \\text{const}$ изотерм тул $\\Delta U = 0$ байна.`;
+                prob.solution = `
+                    <p><b>1. 1-2 изобар халаалтын ажил:</b></p>
+                    <p>$A_{12} = \\nu R (T_2 - T_1) = ${moles} \\cdot 8.31 \\cdot (${T2} - ${T1}) = \\mathbf{${work12}\\text{ Ж}}$</p>
+                    <p><b>2. 2-3 изотерм төлөв:</b></p>
+                    <p>$T = \\text{const} \\implies \\mathbf{\\Delta U_{23} = 0\\text{ Ж}}$</p>
+                `;
+            } else if (type === 'isobar_work') {
+                const gases = [
+                    { name: 'устөрөгч', mu: 2, formula: '\\text{H}_2' },
+                    { name: 'гелий', mu: 4, formula: '\\text{He}' },
+                    { name: 'азот', mu: 28, formula: '\\text{N}_2' }
+                ];
+                const g = gases[Math.floor(Math.random() * gases.length)];
+                const mass = (Math.floor(Math.random() * 4) + 1) * g.mu * 5;
+                const moles = mass / g.mu;
+                const T1 = (Math.floor(Math.random() * 3) + 2) * 100;
+                const ratio = Math.floor(Math.random() * 2) + 2;
+                const T2 = T1 * ratio;
+                const deltaT = T2 - T1;
+                const work = Math.round(moles * 8.31 * deltaT);
+
+                prob.title = "Изобар тэлэлтийн ажил ба эцсийн температур T₂";
+                prob.desc = `$m = ${mass}\\text{ г}$ масстай ${g.name} ($${g.formula}$, $\\mu = ${g.mu}\\text{ г/моль}$) хий изобараар тэлж эзлэхүүн нь ${ratio} дахин ихсэв ($V_2 = ${ratio}V_1$). Хийн анхны температур $T_1 = ${T1}\\text{ К}$ бол хийн эцсийн температур $T_2$ ба тэлэхдээ гүйцэтгэсэн ажил $A$-г ол ($R = 8.31\\text{ Ж/(моль}\\cdot\\text{К)}$).`;
+                prob.fields = [
+                    { id: 'aiAnsT2', label: 'Эцсийн температур T₂ (К):', placeholder: 'Жишээ: 600' },
+                    { id: 'aiAnsWork', label: 'Хийн ажил A (Ж):', placeholder: 'Жишээ: 24930' }
+                ];
+                prob.answers = { aiAnsT2: T2, aiAnsWork: work };
+                prob.hint = `1) $\\frac{V_1}{T_1} = \\frac{V_2}{T_2} \\implies T_2 = ${ratio} \\cdot T_1$.<br>2) $\\nu = \\frac{m}{\\mu}$.<br>3) $A = \\nu R (T_2 - T_1)$.`;
+                prob.solution = `
+                    <p><b>1. Эцсийн температур:</b> $T_2 = ${ratio} \\cdot ${T1}\\text{ К} = \\mathbf{${T2}\\text{ К}}$</p>
+                    <p><b>2. Молийн тоо:</b> $\\nu = \\frac{${mass}}{${g.mu}} = ${moles}\\text{ моль}$</p>
+                    <p><b>3. Хийн тэлэлтийн ажил:</b> $A = \\nu R \\Delta T = ${moles} \\cdot 8.31 \\cdot (${T2} - ${T1}) = \\mathbf{${work}\\text{ Ж}}$</p>
+                `;
+            } else if (type === 'mole_mass') {
+                const gases = [
+                    { name: 'хүчилтөрөгч', mu: 32, formula: '\\text{O}_2' },
+                    { name: 'азот', mu: 28, formula: '\\text{N}_2' },
+                    { name: 'устөрөгч', mu: 2, formula: '\\text{H}_2' },
+                    { name: 'гелий', mu: 4, formula: '\\text{He}' }
+                ];
+                const g = gases[Math.floor(Math.random() * gases.length)];
+                const nMol = (Math.floor(Math.random() * 5) + 1) * 0.5;
+                const mass = Math.round(nMol * g.mu);
+
+                prob.title = "Хийн бодисын тоо хэмжээ (моль) олох";
+                prob.desc = `$${mass}\\text{ г}$ масстай ${g.name} ($${g.formula}$, $\\mu = ${g.mu}\\text{ г/моль}$) хийд ямар тоо хэмжээний бодис (хэдэн моль) агуулагдах вэ?`;
+                prob.fields = [
+                    { id: 'aiAnsMol', label: 'Бодисын тоо хэмжээ ν (моль):', placeholder: 'Жишээ: 1.5' }
+                ];
+                prob.answers = { aiAnsMol: nMol };
+                prob.hint = `$\\nu = \\frac{m}{\\mu}$ томьёогоор хийн масс $m$-ийг молийн масс $\\mu$-д хуваана.`;
+                prob.solution = `<p>$\\nu = \\frac{m}{\\mu} = \\frac{${mass}\\text{ г}}{${g.mu}\\text{ г/моль}} = \\mathbf{${nMol}\\text{ моль}}$</p>`;
+            } else if (type === 'internal_energy') {
+                const moles = Math.floor(Math.random() * 4) + 1;
+                const deltaT = (Math.floor(Math.random() * 4) + 2) * 10;
+                const isMono = Math.random() > 0.5;
+                const gasName = isMono ? "Нэг атомт (гелий)" : "Хоёр атомт (азот, хүчилтөрөгч)";
+                const factor = isMono ? 1.5 : 2.5;
+                const dU = Math.round(factor * moles * 8.31 * deltaT);
+
+                prob.title = "Дотоод энергийн өөрчлөлт (ΔU) тооцоолох";
+                prob.desc = `$\\nu = ${moles}\\text{ моль}$ тоо хэмжээтэй ${gasName} хийн температур $\\Delta T = ${deltaT}\\text{ К}$-ээр өсжээ. Хийн дотоод энергийн өөрчлөлт $\\Delta U$-г олно уу ($R = 8.31\\text{ Ж/(моль}\\cdot\\text{К)}$).`;
+                prob.fields = [
+                    { id: 'aiAnsDU', label: 'Дотоод энерги ΔU (Ж):', placeholder: 'Жишээ: 1246' }
+                ];
+                prob.answers = { aiAnsDU: dU };
+                prob.hint = isMono ? `Нэг атомт хийд $\\Delta U = \\frac{3}{2}\\nu R \\Delta T$.` : `Хоёр атомт хийд $\\Delta U = \\frac{5}{2}\\nu R \\Delta T$.`;
+                prob.solution = `<p>$\\Delta U = \\frac{${isMono ? 3 : 5}}{2}\\nu R \\Delta T = ${factor} \\cdot ${moles} \\cdot 8.31 \\cdot ${deltaT} = \\mathbf{${dU}\\text{ Ж}}$</p>`;
+            }
+
+            currentGeneratedAIProblem = prob;
+
+            container.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="px-3 py-1 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded-lg text-xs font-bold uppercase tracking-wider">
+                        ${prob.title}
+                    </span>
+                    <span class="text-xs text-slate-400 font-semibold">AI Автомат үүсгэгч</span>
+                </div>
+                <p class="text-sm md:text-base font-bold text-slate-100">${prob.desc}</p>
+                ${prob.svg ? `<div class="flex justify-center">${prob.svg}</div>` : ''}
+            `;
+
+            inputsArea.innerHTML = prob.fields.map(f => `
+                <div>
+                    <label class="block text-slate-300 text-xs font-bold mb-1">${f.label}</label>
+                    <input type="number" id="${f.id}" placeholder="${f.placeholder}" class="w-full bg-slate-900 border border-slate-700 text-slate-100 font-semibold px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:border-purple-400">
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+            setTimeout(triggerKaTeX, 100);
+        }
+
+        function checkAIAnswer() {
+            if (!currentGeneratedAIProblem) return;
+
+            const prob = currentGeneratedAIProblem;
+            let allCorrect = true;
+
+            for (const key in prob.answers) {
+                const userVal = parseFloat(document.getElementById(key).value);
+                const trueVal = prob.answers[key];
+
+                if (isNaN(userVal)) {
+                    alert('Бүх талбарт тоон хариултаа оруулна уу!');
+                    return;
+                }
+
+                const tol = Math.max(2, Math.abs(trueVal * 0.03));
+                if (Math.abs(userVal - trueVal) > tol) {
+                    allCorrect = false;
+                }
+            }
+
+            const fb = document.getElementById('aiFeedbackBox');
+            fb.classList.remove('hidden');
+
+            if (allCorrect) {
+                fb.className = "p-4 rounded-xl text-xs md:text-sm font-bold border bg-emerald-950/80 border-emerald-500 text-emerald-200 flex items-center gap-3";
+                fb.innerHTML = `<i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0"></i> Баяр хүргэе! Таны хариулт үнэн зөв байна. Шинэ бодлого үүсгэж дахин туршаарай!`;
+            } else {
+                fb.className = "p-4 rounded-xl text-xs md:text-sm font-bold border bg-red-950/80 border-red-500 text-red-200 flex items-center gap-3";
+                fb.innerHTML = `<i data-lucide="x-circle" class="w-5 h-5 text-red-400 shrink-0"></i> Хариу буруу эсвэл зөрүүтэй байна. "Сэжүүр авах" эсвэл "Дэлгэрэнгүй бодолт"-оос шалгана уу.`;
+            }
+            lucide.createIcons();
+        }
+
+        function toggleAIHint() {
+            if (!currentGeneratedAIProblem) return;
+            const box = document.getElementById('aiHintBox');
+            box.classList.toggle('hidden');
+            box.innerHTML = `<p class="font-extrabold text-amber-300 flex items-center gap-2 mb-1"><i data-lucide="lightbulb" class="w-4 h-4"></i> AI Сэжүүр:</p><p>${currentGeneratedAIProblem.hint}</p>`;
+            lucide.createIcons();
+            setTimeout(triggerKaTeX, 50);
+        }
+
+        function toggleAISolution() {
+            if (!currentGeneratedAIProblem) return;
+            const box = document.getElementById('aiSolutionBox');
+            box.classList.toggle('hidden');
+            box.innerHTML = `<p class="font-extrabold text-indigo-300 flex items-center gap-2 mb-1"><i data-lucide="check-check" class="w-4 h-4"></i> Дэлгэрэнгүй бодолт & Гаргалгаа:</p>${currentGeneratedAIProblem.solution}`;
+            lucide.createIcons();
+            setTimeout(triggerKaTeX, 50);
+        }
+    </script>
+</body>
+</html>
